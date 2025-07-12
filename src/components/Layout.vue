@@ -16,6 +16,7 @@
         </div>
         
         <div class="nav-actions">
+          <ThemeSelector />
           <div class="language-selector">
             <span class="language-icon">🌐</span>
             <span class="language-text">EN</span>
@@ -30,6 +31,17 @@
     </main>
   </div>
 </template>
+
+<script>
+import ThemeSelector from './ThemeSelector.vue'
+
+export default {
+  name: 'Layout',
+  components: {
+    ThemeSelector
+  }
+}
+</script>
 
 <style scoped>
 .layout {
@@ -97,6 +109,7 @@
 .nav-actions {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .language-selector {
