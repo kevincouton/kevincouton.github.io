@@ -29,21 +29,34 @@ fi
 
 echo "✅ Build successful!"
 
+# Check if dist directory exists
+if [ ! -d "dist" ]; then
+    echo "❌ dist directory not found after build!"
+    exit 1
+fi
+
+# Create a temporary directory to store built files
+echo "📁 Preparing built files..."
+TEMP_DIR="/tmp/blog-deploy-$(date +%s)"
+mkdir -p "$TEMP_DIR"
+cp -r dist/* "$TEMP_DIR/" 2>/dev/null || true
+cp -r dist/.* "$TEMP_DIR/" 2>/dev/null || true
+
 # Switch to master branch
 echo "🔄 Switching to master branch..."
 git checkout master
 
 # Remove old files (keep .git and other important files)
 echo "🧹 Cleaning up old files..."
-find . -maxdepth 1 -not -name '.git' -not -name '.gitignore' -not -name 'deploy.sh' -not -name '.' -exec rm -rf {} \;
+find . -maxdepth 1 -not -name '.git' -not -name '.gitignore' -not -name '.' -exec rm -rf {} \;
 
-# Copy built files to root
+# Copy built files from temp directory
 echo "📁 Copying built files..."
-cp -r dist/* .
-cp -r dist/.* . 2>/dev/null || true
+cp -r "$TEMP_DIR"/* . 2>/dev/null || true
+cp -r "$TEMP_DIR"/.* . 2>/dev/null || true
 
-# Remove dist directory
-rm -rf dist
+# Clean up temp directory
+rm -rf "$TEMP_DIR"
 
 # Add and commit changes
 echo "💾 Committing changes..."
