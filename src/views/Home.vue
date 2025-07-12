@@ -71,13 +71,26 @@
           </div>
         </article>
       </div>
+      
+      <!-- Homepage Bottom Ad -->
+      <CarbonAd 
+        placeholder-text="Homepage Footer Banner" 
+        class="homepage-ad"
+      />
     </section>
   </div>
 </template>
 
 <script>
+import GoogleAd from '../components/GoogleAd.vue'
+import CarbonAd from '../components/CarbonAd.vue'
+
 export default {
   name: 'Home',
+  components: {
+    GoogleAd,
+    CarbonAd
+  },
   data() {
     return {
       selectedCategory: 'All',

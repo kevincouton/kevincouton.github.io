@@ -20,6 +20,9 @@
         </div>
       </div>
 
+      <!-- Header Ad - After title, before content -->
+      <CarbonAd placeholder-text="Header Banner" />
+
       <div class="post-body">
         <div class="post-content-text">
           <p>{{ post.description }}</p>
@@ -43,6 +46,13 @@
             sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
           
+          <!-- Mid-article Ad -->
+          <GoogleAd 
+            placeholder-text="Mid-Article Banner" 
+            :height="250" 
+            ad-format="rectangle" 
+          />
+          
           <h2>Conclusion</h2>
           <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
@@ -51,6 +61,13 @@
           </p>
         </div>
       </div>
+
+      <!-- Bottom Article Ad -->
+      <GoogleAd 
+        placeholder-text="Article Footer Banner" 
+        :height="200" 
+        ad-format="auto" 
+      />
 
       <div class="post-footer">
         <div class="contact-section">
@@ -100,8 +117,15 @@
 </template>
 
 <script>
+import GoogleAd from '../components/GoogleAd.vue'
+import CarbonAd from '../components/CarbonAd.vue'
+
 export default {
   name: 'BlogPost',
+  components: {
+    GoogleAd,
+    CarbonAd
+  },
   props: {
     slug: {
       type: String,
