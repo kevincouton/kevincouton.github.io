@@ -7,6 +7,10 @@
           <span class="post-date">{{ post.date }}</span>
           <span class="post-read-time">{{ post.readTime }} min read</span>
         </div>
+        <div class="post-version-info">
+          <span class="version-label">Version {{ post.version || '1.0' }}</span>
+          <span class="current-date">Last updated: {{ currentDate }}</span>
+        </div>
         <h1 class="post-title">{{ post.title }}</h1>
         <div class="post-author">
           <div class="author-avatar">👨‍💻</div>
@@ -174,6 +178,15 @@ export default {
       this.loadPost()
     }
   },
+  computed: {
+    currentDate() {
+      return new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    }
+  },
   methods: {
     loadPost() {
       this.post = this.posts.find(p => p.slug === this.slug)
@@ -222,6 +235,23 @@ export default {
 .post-read-time {
   opacity: 0.8;
   font-size: 0.9rem;
+}
+
+.post-version-info {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.version-label,
+.current-date {
+  opacity: 0.7;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
 }
 
 .post-title {
