@@ -4,7 +4,7 @@
       <span class="theme-icon">🎨</span>
       <span class="theme-text">Theme</span>
     </div>
-    
+
     <div v-if="showThemeMenu" class="theme-menu">
       <div class="theme-menu-header">
         <span>Choose Theme</span>
@@ -28,6 +28,7 @@
 <script>
 export default {
   name: 'ThemeSelector',
+  emits: ['theme-changed'],
   data() {
     return {
       showThemeMenu: false,
@@ -64,54 +65,54 @@ export default {
           gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
         }
       ]
-    }
+    };
   },
   mounted() {
     // Load saved theme from localStorage
-    const savedTheme = localStorage.getItem('selected-theme')
+    const savedTheme = localStorage.getItem('selected-theme');
     if (savedTheme) {
-      this.currentTheme = savedTheme
-      this.applyTheme(savedTheme)
+      this.currentTheme = savedTheme;
+      this.applyTheme(savedTheme);
     }
-    
+
     // Close menu when clicking outside
-    document.addEventListener('click', this.handleOutsideClick)
+    document.addEventListener('click', this.handleOutsideClick);
   },
   beforeUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick)
+    document.removeEventListener('click', this.handleOutsideClick);
   },
   methods: {
     toggleThemeMenu() {
-      this.showThemeMenu = !this.showThemeMenu
+      this.showThemeMenu = !this.showThemeMenu;
     },
     selectTheme(themeName) {
-      this.currentTheme = themeName
-      this.applyTheme(themeName)
-      this.showThemeMenu = false
-      
+      this.currentTheme = themeName;
+      this.applyTheme(themeName);
+      this.showThemeMenu = false;
+
       // Save to localStorage
-      localStorage.setItem('selected-theme', themeName)
+      localStorage.setItem('selected-theme', themeName);
     },
     applyTheme(themeName) {
-      const theme = this.themes.find(t => t.name === themeName)
+      const theme = this.themes.find(t => t.name === themeName);
       if (theme) {
         // Apply theme to the layout element
-        const layoutElement = document.querySelector('.layout')
+        const layoutElement = document.querySelector('.layout');
         if (layoutElement) {
-          layoutElement.style.background = theme.gradient
+          layoutElement.style.background = theme.gradient;
         }
-        
+
         // Emit event to parent components if needed
-        this.$emit('theme-changed', { name: themeName, gradient: theme.gradient })
+        this.$emit('theme-changed', { name: themeName, gradient: theme.gradient });
       }
     },
     handleOutsideClick(event) {
       if (!this.$el.contains(event.target)) {
-        this.showThemeMenu = false
+        this.showThemeMenu = false;
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -214,12 +215,12 @@ export default {
     left: -1rem;
     width: auto;
   }
-  
+
   .theme-button {
     padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
   }
-  
+
   .theme-text {
     display: none;
   }

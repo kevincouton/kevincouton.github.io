@@ -1,6 +1,6 @@
 <template>
   <div class="blog-post">
-    <div class="post-content" v-if="post">
+    <div v-if="post" class="post-content">
       <div class="post-header">
         <div class="post-meta">
           <span class="post-category">{{ post.category }}</span>
@@ -28,68 +28,40 @@
       <CarbonAd placeholder-text="Header Banner" />
 
       <div class="post-body">
-        <div class="post-content-text">
-          <p>{{ post.description }}</p>
-          
-          <p>
-            This is a sample blog post content. In a real implementation, this would be 
-            rendered from markdown content stored in the content directory.
-          </p>
-          
-          <h2>Introduction</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-            nostrud exercitation ullamco laboris.
-          </p>
-          
-          <h2>Main Content</h2>
-          <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-            sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          
-          <!-- Mid-article Ad -->
-          <GoogleAd 
-            placeholder-text="Mid-Article Banner" 
-            :height="250" 
-            ad-format="rectangle" 
-          />
-          
-          <h2>Conclusion</h2>
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-            veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-          </p>
-        </div>
+        <div class="post-content-text" v-html="post.content"></div>
+
+        <!-- Mid-article Ad -->
+        <GoogleAd
+          placeholder-text="Mid-Article Banner"
+          :height="250"
+          ad-format="rectangle"
+        />
       </div>
 
       <!-- Bottom Article Ad -->
-      <GoogleAd 
-        placeholder-text="Article Footer Banner" 
-        :height="200" 
-        ad-format="auto" 
+      <GoogleAd
+        placeholder-text="Article Footer Banner"
+        :height="200"
+        ad-format="auto"
       />
 
       <div class="post-footer">
         <div class="contact-section">
           <h3 class="contact-title">Get in Touch</h3>
           <p class="contact-text">
-            Have questions about this article or want to discuss these topics further? 
+            Have questions about this article or want to discuss these topics further?
             I'd love to hear from you!
           </p>
           <div class="contact-links">
-            <a 
-              href="mailto:kevin.couton@gmail.com" 
+            <a
+              href="mailto:kevin.couton@gmail.com"
               class="contact-link email"
             >
               <span class="contact-icon">📧</span>
               <span class="contact-text-link">kevin.couton@gmail.com</span>
             </a>
-            <a 
-              href="https://www.linkedin.com/in/kevin-couton-71632649/" 
+            <a
+              href="https://www.linkedin.com/in/kevin-couton-71632649/"
               target="_blank"
               rel="noopener noreferrer"
               class="contact-link linkedin"
@@ -99,7 +71,7 @@
             </a>
           </div>
         </div>
-        
+
         <div class="navigation-section">
           <router-link to="/" class="back-link">
             <span class="back-arrow">←</span>
@@ -108,8 +80,8 @@
         </div>
       </div>
     </div>
-    
-    <div class="post-not-found" v-else>
+
+    <div v-else class="post-not-found">
       <h1>Post Not Found</h1>
       <p>The requested blog post could not be found.</p>
       <router-link to="/" class="back-link">
@@ -120,79 +92,43 @@
   </div>
 </template>
 
-<script>
-import GoogleAd from '../components/GoogleAd.vue'
-import CarbonAd from '../components/CarbonAd.vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import GoogleAd from '../components/GoogleAd.vue';
+import CarbonAd from '../components/CarbonAd.vue';
+import { getBlogPost } from '@/data/blogPosts';
+import type { BlogPost } from '@/types/blog';
 
-export default {
-  name: 'BlogPost',
-  components: {
-    GoogleAd,
-    CarbonAd
-  },
-  props: {
-    slug: {
-      type: String,
-      required: true
+const route = useRoute();
+
+// Reactive data
+const post = ref<BlogPost | null>(null);
+const loading = ref<boolean>(true);
+const error = ref<string | null>(null);
+
+// Computed
+const currentDate = new Date().toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Lifecycle
+onMounted(() => {
+  const slug = route.params.slug as string;
+  
+  try {
+    post.value = getBlogPost(slug) || null;
+    if (!post.value) {
+      error.value = 'Post not found';
     }
-  },
-  data() {
-    return {
-      post: null,
-      posts: [
-        {
-          slug: 'exploring-vue-3-composition-api',
-          title: 'Exploring Vue 3 Composition API',
-          description: 'A deep dive into Vue 3\'s Composition API and how it changes the way we write Vue applications.',
-          category: 'Tech',
-          date: 'Jan 15, 2024',
-          readTime: 8,
-          icon: '⚡'
-        },
-        {
-          slug: 'building-modern-web-apps',
-          title: 'Building Modern Web Applications',
-          description: 'Best practices and tools for creating scalable and maintainable web applications.',
-          category: 'Tech',
-          date: 'Jan 10, 2024',
-          readTime: 12,
-          icon: '🏗️'
-        },
-        {
-          slug: 'developer-productivity-tips',
-          title: 'Developer Productivity Tips',
-          description: 'Essential tips and tricks to boost your productivity as a software developer.',
-          category: 'Tips & Hacks',
-          date: 'Jan 5, 2024',
-          readTime: 6,
-          icon: '💡'
-        }
-      ]
-    }
-  },
-  mounted() {
-    this.loadPost()
-  },
-  watch: {
-    slug() {
-      this.loadPost()
-    }
-  },
-  computed: {
-    currentDate() {
-      return new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    }
-  },
-  methods: {
-    loadPost() {
-      this.post = this.posts.find(p => p.slug === this.slug)
-    }
+  } catch (err) {
+    error.value = `Failed to load post: ${err instanceof Error ? err.message : 'Unknown error'}`;
+  } finally {
+    loading.value = false;
   }
-}
+});
 </script>
 
 <style scoped>
@@ -440,11 +376,11 @@ export default {
     padding: 2rem;
     margin: 1rem;
   }
-  
+
   .post-title {
     font-size: 2rem;
   }
-  
+
   .post-meta {
     flex-direction: column;
     gap: 0.5rem;

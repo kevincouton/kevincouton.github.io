@@ -9,12 +9,12 @@
             <span class="brand-text">Kevin Couton</span>
           </router-link>
         </div>
-        
+
         <div class="nav-menu">
           <router-link to="/" class="nav-link">Blog</router-link>
           <router-link to="/about" class="nav-link">About</router-link>
         </div>
-        
+
         <div class="nav-actions">
           <ThemeSelector />
           <div class="language-selector">
@@ -27,20 +27,13 @@
 
     <!-- Main Content -->
     <main class="main-content">
-      <slot />
+      <slot></slot>
     </main>
   </div>
 </template>
 
-<script>
-import ThemeSelector from './ThemeSelector.vue'
-
-export default {
-  name: 'Layout',
-  components: {
-    ThemeSelector
-  }
-}
+<script setup lang="ts">
+import ThemeSelector from './ThemeSelector.vue';
 </script>
 
 <style scoped>
@@ -143,11 +136,11 @@ export default {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .nav-menu {
     gap: 1rem;
   }
-  
+
   .main-content {
     padding: 1rem;
   }

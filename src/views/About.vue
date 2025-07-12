@@ -15,12 +15,12 @@
         <div class="bio-section">
           <h2 class="section-title">About Me</h2>
           <p class="bio-text">
-            I'm a passionate software developer with a love for creating innovative solutions 
-            and sharing knowledge with the developer community. My interests span across 
+            I'm a passionate software developer with a love for creating innovative solutions
+            and sharing knowledge with the developer community. My interests span across
             modern web technologies, software architecture, and emerging tech trends.
           </p>
           <p class="bio-text">
-            Through this blog, I share my experiences, tutorials, and insights about 
+            Through this blog, I share my experiences, tutorials, and insights about
             technology, hoping to help others on their development journey.
           </p>
         </div>
@@ -58,13 +58,13 @@
         <div class="connect-section">
           <h2 class="section-title">Let's Connect</h2>
           <p class="connect-text">
-            Feel free to reach out if you'd like to collaborate, have questions, 
+            Feel free to reach out if you'd like to collaborate, have questions,
             or just want to chat about technology!
           </p>
-          
+
           <div class="social-links">
-            <a 
-              href="https://www.linkedin.com/in/kevin-couton-71632649/" 
+            <a
+              href="https://www.linkedin.com/in/kevin-couton-71632649/"
               target="_blank"
               rel="noopener noreferrer"
               class="social-link linkedin"
@@ -73,9 +73,9 @@
               <span class="social-text">LinkedIn</span>
               <span class="social-arrow">→</span>
             </a>
-            
-            <a 
-              href="https://github.com/kevincouton" 
+
+            <a
+              href="https://github.com/kevincouton"
               target="_blank"
               rel="noopener noreferrer"
               class="social-link github"
@@ -84,9 +84,9 @@
               <span class="social-text">GitHub</span>
               <span class="social-arrow">→</span>
             </a>
-            
-            <a 
-              href="mailto:kevin.couton@gmail.com" 
+
+            <a
+              href="mailto:kevin.couton@gmail.com"
               class="social-link email"
             >
               <span class="social-icon">📧</span>
@@ -102,8 +102,8 @@
 
 <script>
 export default {
-  name: 'About'
-}
+  name: 'AboutView'
+};
 </script>
 
 <style scoped>
@@ -287,15 +287,15 @@ export default {
     padding: 2rem;
     margin: 1rem;
   }
-  
+
   .name {
     font-size: 2rem;
   }
-  
+
   .skills-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .social-links {
     flex-direction: column;
   }

@@ -1,12 +1,12 @@
 <template>
-  <div class="carbon-ad-container" v-if="showAds">
+  <div v-if="showAds" class="carbon-ad-container">
     <span class="ad-label">Advertisement</span>
     <div class="ad-content">
       <div :id="carbonId" class="carbon-ad"></div>
     </div>
   </div>
   <!-- Placeholder for development/before approval -->
-  <div class="ad-placeholder" v-else>
+  <div v-else class="ad-placeholder">
     <span class="ad-label">Advertisement Placeholder</span>
     <div class="placeholder-content">
       <div class="placeholder-text">
@@ -40,40 +40,40 @@ export default {
     return {
       showAds: false, // Set to true once approved by Carbon
       carbonId: `carbon-${Math.random().toString(36).substring(7)}`
-    }
+    };
   },
   mounted() {
     if (this.showAds) {
-      this.loadCarbonAd()
+      this.loadCarbonAd();
+    }
+  },
+  beforeUnmount() {
+    // Clean up Carbon ads script
+    const carbonScript = document.getElementById('_carbonads_js');
+    if (carbonScript) {
+      carbonScript.remove();
     }
   },
   methods: {
     loadCarbonAd() {
       if (window._carbonads) {
-        window._carbonads.refresh()
-        return
+        window._carbonads.refresh();
+        return;
       }
 
-      const script = document.createElement('script')
-      script.async = true
-      script.type = 'text/javascript'
-      script.src = `//cdn.carbonads.com/carbon.js?serve=${this.serve}&placement=${this.placement}`
-      script.id = '_carbonads_js'
-      
-      const carbonElement = document.getElementById(this.carbonId)
+      const script = document.createElement('script');
+      script.async = true;
+      script.type = 'text/javascript';
+      script.src = `//cdn.carbonads.com/carbon.js?serve=${this.serve}&placement=${this.placement}`;
+      script.id = '_carbonads_js';
+
+      const carbonElement = document.getElementById(this.carbonId);
       if (carbonElement) {
-        carbonElement.appendChild(script)
+        carbonElement.appendChild(script);
       }
     }
-  },
-  beforeUnmount() {
-    // Clean up Carbon ads script
-    const carbonScript = document.getElementById('_carbonads_js')
-    if (carbonScript) {
-      carbonScript.remove()
-    }
   }
-}
+};
 </script>
 
 <style scoped>

@@ -2,25 +2,24 @@
   <div class="home">
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-content">
+      <div class="hero-content" @click="navigateToFeaturedPost">
         <div class="hero-text">
-          <span class="hero-category">Tech</span>
-          <h1 class="hero-title">Exploring the Wonders of Technology</h1>
+          <span class="hero-category">{{ featuredPost?.category || 'Development Stacks' }}</span>
+          <h1 class="hero-title">{{ featuredPost?.title || 'Exploring the Best Development Stack Frameworks for 2024' }}</h1>
           <p class="hero-description">
-            Discover insights, tutorials, and thoughts on modern web development, 
-            software engineering, and emerging technologies.
+            {{ featuredPost?.description || 'In-depth exploration of development stacks like TanStack, JHipster, and other frameworks, along with their use cases, advantages, and potential pitfalls.' }}
           </p>
           <div class="hero-meta">
             <div class="author">
               <div class="author-avatar">👨‍💻</div>
               <span class="author-name">Kevin Couton</span>
             </div>
-            <div class="hero-date">{{ currentDate }} • 5 min read</div>
+            <div class="hero-date">{{ featuredPost?.date || '2024-01-25' }} • {{ featuredPost?.readTime || 10 }} min read</div>
           </div>
         </div>
         <div class="hero-image">
           <div class="hero-placeholder">
-            <span class="hero-icon">🚀</span>
+            <span class="hero-icon">{{ featuredPost?.icon || '🔧' }}</span>
           </div>
         </div>
       </div>
@@ -37,8 +36,8 @@
 
       <!-- Category Filters -->
       <div class="category-filters">
-        <button 
-          v-for="category in categories" 
+        <button
+          v-for="category in categories"
           :key="category"
           :class="['filter-btn', { active: selectedCategory === category }]"
           @click="selectedCategory = category"
@@ -47,10 +46,20 @@
         </button>
       </div>
 
+      <!-- Loading State -->
+      <div v-if="loading" class="loading-state">
+        <p>Loading articles...</p>
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="error-state">
+        <p>{{ error }}</p>
+      </div>
+
       <!-- Blog Posts Grid -->
-      <div class="blog-grid">
-        <article 
-          v-for="post in filteredPosts" 
+      <div v-else-if="filteredPosts.length > 0" class="blog-grid">
+        <article
+          v-for="post in filteredPosts"
           :key="post.slug"
           class="blog-card"
           @click="navigateToPost(post.slug)"
@@ -71,80 +80,88 @@
           </div>
         </article>
       </div>
-      
+
+      <!-- No Posts State -->
+      <div v-else class="no-posts-state">
+        <p>No articles found.</p>
+      </div>
+
       <!-- Homepage Bottom Ad -->
-      <CarbonAd 
-        placeholder-text="Homepage Footer Banner" 
+      <CarbonAd
+        placeholder-text="Homepage Footer Banner"
         class="homepage-ad"
       />
     </section>
   </div>
 </template>
 
-<script>
-import GoogleAd from '../components/GoogleAd.vue'
-import CarbonAd from '../components/CarbonAd.vue'
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import CarbonAd from '../components/CarbonAd.vue';
+import { getBlogPosts, getCategories } from '@/data/blogPosts';
+import type { BlogPost, CategoryFilter } from '@/types/blog';
 
-export default {
-  name: 'Home',
-  components: {
-    GoogleAd,
-    CarbonAd
-  },
-  data() {
-    return {
-      selectedCategory: 'All',
-      categories: ['All', 'Tech', 'Lifestyle', 'Tips & Hacks'],
-      currentDate: new Date().toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-      }),
-      posts: [
-        {
-          slug: 'exploring-vue-3-composition-api',
-          title: 'Exploring Vue 3 Composition API',
-          description: 'A deep dive into Vue 3\'s Composition API and how it changes the way we write Vue applications.',
-          category: 'Tech',
-          date: 'Jan 15, 2024',
-          readTime: 8,
-          icon: '⚡'
-        },
-        {
-          slug: 'building-modern-web-apps',
-          title: 'Building Modern Web Applications',
-          description: 'Best practices and tools for creating scalable and maintainable web applications.',
-          category: 'Tech',
-          date: 'Jan 10, 2024',
-          readTime: 12,
-          icon: '🏗️'
-        },
-        {
-          slug: 'developer-productivity-tips',
-          title: 'Developer Productivity Tips',
-          description: 'Essential tips and tricks to boost your productivity as a software developer.',
-          category: 'Tips & Hacks',
-          date: 'Jan 5, 2024',
-          readTime: 6,
-          icon: '💡'
-        }
-      ]
-    }
-  },
-  computed: {
-    filteredPosts() {
-      if (this.selectedCategory === 'All') {
-        return this.posts
-      }
-      return this.posts.filter(post => post.category === this.selectedCategory)
-    }
-  },
-  methods: {
-    navigateToPost(slug) {
-      this.$router.push(`/blog/${slug}`)
-    }
+const router = useRouter();
+
+// Reactive data
+const selectedCategory = ref<CategoryFilter>('All');
+const categories = ref<string[]>(['All']);
+const posts = ref<BlogPost[]>([]);
+const loading = ref<boolean>(true);
+const error = ref<string | null>(null);
+const featuredPost = ref<BlogPost | null>(null);
+
+const currentDate = new Date().toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric'
+});
+
+// Computed properties
+const filteredPosts = computed(() => {
+  if (selectedCategory.value === 'All') {
+    return posts.value;
   }
-}
+  return posts.value.filter(post => post.category === selectedCategory.value);
+});
+
+// Methods
+const navigateToPost = (slug: string) => {
+  const post = posts.value.find(p => p.slug === slug);
+  if (post?.articlePath) {
+    router.push(post.articlePath);
+  } else {
+    router.push(`/blog/${slug}`);
+  }
+};
+
+const navigateToFeaturedPost = () => {
+  if (featuredPost.value?.articlePath) {
+    router.push(featuredPost.value.articlePath);
+  } else if (featuredPost.value?.slug) {
+    router.push(`/blog/${featuredPost.value.slug}`);
+  } else {
+    // Fallback to development stacks article
+    router.push('/articles/development-stack-frameworks');
+  }
+};
+
+// Lifecycle
+onMounted(() => {
+  try {
+    posts.value = getBlogPosts();
+    categories.value = getCategories();
+    
+    // Set the featured post to the development stacks article
+    featuredPost.value = posts.value.find(post => post.slug === 'development-stack-frameworks') || null;
+    
+    loading.value = false;
+  } catch (err) {
+    error.value = 'Failed to load blog posts';
+    loading.value = false;
+  }
+});
 </script>
 
 <style scoped>
@@ -163,6 +180,14 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.hero-content:hover {
+  transform: translateY(-5px);
 }
 
 .hero-category {
@@ -367,20 +392,36 @@ export default {
   opacity: 0.7;
 }
 
+.loading-state,
+.error-state,
+.no-posts-state {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.error-state {
+  background: rgba(255, 99, 71, 0.1);
+  border-color: rgba(255, 99, 71, 0.3);
+}
+
 @media (max-width: 768px) {
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2rem;
   }
-  
+
   .blog-section {
     padding: 2rem;
   }
-  
+
   .blog-grid {
     grid-template-columns: 1fr;
   }

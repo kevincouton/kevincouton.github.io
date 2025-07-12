@@ -1,8 +1,8 @@
 <template>
-  <div class="google-ad-container" v-if="showAds">
+  <div v-if="showAds" class="google-ad-container">
     <span class="ad-label">Advertisement</span>
     <div class="ad-content">
-      <ins 
+      <ins
         class="adsbygoogle"
         :style="adStyle"
         :data-ad-client="adClient"
@@ -13,7 +13,7 @@
     </div>
   </div>
   <!-- Placeholder for development/before approval -->
-  <div class="ad-placeholder" v-else>
+  <div v-else class="ad-placeholder">
     <span class="ad-label">Advertisement Placeholder</span>
     <div class="placeholder-content">
       <div class="placeholder-text">
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       showAds: false // Set to true once approved by AdSense
-    }
+    };
   },
   computed: {
     adStyle() {
@@ -69,15 +69,15 @@ export default {
         display: 'block',
         width: typeof this.width === 'number' ? `${this.width}px` : this.width,
         height: typeof this.height === 'number' ? `${this.height}px` : this.height
-      }
+      };
     }
   },
   mounted() {
     if (this.showAds && window.adsbygoogle) {
-      (window.adsbygoogle = window.adsbygoogle || []).push({})
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     }
   }
-}
+};
 </script>
 
 <style scoped>
