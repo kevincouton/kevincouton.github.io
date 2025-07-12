@@ -64,7 +64,7 @@
           
           <div class="social-links">
             <a 
-              href="https://linkedin.com/in/kevincouton" 
+              href="https://www.linkedin.com/in/kevin-couton-71632649/" 
               target="_blank"
               rel="noopener noreferrer"
               class="social-link linkedin"
