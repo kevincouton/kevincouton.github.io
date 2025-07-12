@@ -84,6 +84,15 @@
               <span class="social-text">GitHub</span>
               <span class="social-arrow">→</span>
             </a>
+            
+            <a 
+              href="mailto:kevin.couton@gmail.com" 
+              class="social-link email"
+            >
+              <span class="social-icon">📧</span>
+              <span class="social-text">Email</span>
+              <span class="social-arrow">→</span>
+            </a>
           </div>
         </div>
       </div>
@@ -250,6 +259,10 @@ export default {
 
 .social-link.github:hover {
   background: rgba(36, 41, 47, 0.3);
+}
+
+.social-link.email:hover {
+  background: rgba(234, 67, 53, 0.3);
 }
 
 .social-icon {

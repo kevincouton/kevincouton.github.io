@@ -53,10 +53,38 @@
       </div>
 
       <div class="post-footer">
-        <router-link to="/" class="back-link">
-          <span class="back-arrow">←</span>
-          Back to Blog
-        </router-link>
+        <div class="contact-section">
+          <h3 class="contact-title">Get in Touch</h3>
+          <p class="contact-text">
+            Have questions about this article or want to discuss these topics further? 
+            I'd love to hear from you!
+          </p>
+          <div class="contact-links">
+            <a 
+              href="mailto:kevin.couton@gmail.com" 
+              class="contact-link email"
+            >
+              <span class="contact-icon">📧</span>
+              <span class="contact-text-link">kevin.couton@gmail.com</span>
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/kevin-couton-71632649/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-link linkedin"
+            >
+              <span class="contact-icon">💼</span>
+              <span class="contact-text-link">Connect on LinkedIn</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="navigation-section">
+          <router-link to="/" class="back-link">
+            <span class="back-arrow">←</span>
+            Back to Blog
+          </router-link>
+        </div>
       </div>
     </div>
     
@@ -241,6 +269,68 @@ export default {
 .post-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 2rem;
+}
+
+.contact-section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.contact-text {
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.contact-link.email:hover {
+  background: rgba(234, 67, 53, 0.3);
+}
+
+.contact-link.linkedin:hover {
+  background: rgba(0, 119, 181, 0.3);
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+}
+
+.navigation-section {
+  text-align: center;
 }
 
 .back-link {
