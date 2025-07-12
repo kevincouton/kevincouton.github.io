@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "blog": "博客",
+    "about": "关于",
+    "language": "中文"
+  },
+  "home": {
+    "hero": {
+      "title": "探索技术的奇妙世界",
+      "description": "发现现代网络开发、软件工程和新兴技术的见解、教程和思考。",
+      "author": "Kevin Couton",
+      "readTime": "分钟阅读"
+    },
+    "blog": {
+      "title": "博客",
+      "description": "在这里，我分享关于技术和开发的见解、教程和故事。",
+      "categories": {
+        "all": "全部",
+        "tech": "技术",
+        "lifestyle": "生活方式",
+        "tips": "技巧与窍门"
+      },
+      "loading": "正在加载文章...",
+      "error": "加载博客文章失败",
+      "noArticles": "未找到文章。"
+    }
+  },
+  "articles": {
+    "backToBlog": "← 返回博客",
+    "categories": {
+      "tech": "技术",
+      "lifestyle": "生活方式",
+      "tips": "技巧与窍门",
+      "development": "开发技术栈",
+      "frameworks": "IT框架",
+      "coaching": "专业指导"
+    }
+  },
+  "common": {
+    "readMore": "阅读更多",
+    "author": "Kevin Couton",
+    "date": "日期",
+    "readTime": "阅读时间"
+  }
+}

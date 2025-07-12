@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "about": "About",
+    "language": "EN"
+  },
+  "home": {
+    "hero": {
+      "title": "Exploring the Wonders of Technology",
+      "description": "Discover insights, tutorials, and thoughts on modern web development, software engineering, and emerging technologies.",
+      "author": "Kevin Couton",
+      "readTime": "min read"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Here, I share insights, tutorials, and stories about technology and development.",
+      "categories": {
+        "all": "All",
+        "tech": "Tech",
+        "lifestyle": "Lifestyle",
+        "tips": "Tips & Hacks"
+      },
+      "loading": "Loading articles...",
+      "error": "Failed to load blog posts",
+      "noArticles": "No articles found."
+    }
+  },
+  "articles": {
+    "backToBlog": "← Back to Blog",
+    "categories": {
+      "tech": "Tech",
+      "lifestyle": "Lifestyle",
+      "tips": "Tips & Hacks",
+      "development": "Development Stacks",
+      "frameworks": "IT Frameworks",
+      "coaching": "Professional Coaching"
+    }
+  },
+  "common": {
+    "readMore": "Read More",
+    "author": "Kevin Couton",
+    "date": "Date",
+    "readTime": "Reading Time"
+  }
+}

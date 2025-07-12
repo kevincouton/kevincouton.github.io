@@ -28,9 +28,9 @@
     <!-- Blog Section -->
     <section class="blog-section">
       <div class="blog-header">
-        <h2 class="blog-title">Blog</h2>
+        <h2 class="blog-title">{{ $t('home.blog.title') }}</h2>
         <p class="blog-description">
-          Here, I share insights, tutorials, and stories about technology and development.
+          {{ $t('home.blog.description') }}
         </p>
       </div>
 
@@ -48,12 +48,12 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="loading-state">
-        <p>Loading articles...</p>
+        <p>{{ $t('home.blog.loading') }}</p>
       </div>
 
       <!-- Error State -->
       <div v-else-if="error" class="error-state">
-        <p>{{ error }}</p>
+        <p>{{ $t('home.blog.error') }}</p>
       </div>
 
       <!-- Blog Posts Grid -->
@@ -83,7 +83,7 @@
 
       <!-- No Posts State -->
       <div v-else class="no-posts-state">
-        <p>No articles found.</p>
+        <p>{{ $t('home.blog.noArticles') }}</p>
       </div>
 
       <!-- Homepage Bottom Ad -->

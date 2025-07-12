@@ -11,16 +11,13 @@
         </div>
 
         <div class="nav-menu">
-          <router-link to="/" class="nav-link">Blog</router-link>
-          <router-link to="/about" class="nav-link">About</router-link>
+          <router-link to="/" class="nav-link">{{ $t('nav.blog') }}</router-link>
+          <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
         </div>
 
         <div class="nav-actions">
           <ThemeSelector />
-          <div class="language-selector">
-            <span class="language-icon">🌐</span>
-            <span class="language-text">EN</span>
-          </div>
+          <LanguageSelector />
         </div>
       </nav>
     </header>
@@ -34,6 +31,7 @@
 
 <script setup lang="ts">
 import ThemeSelector from './ThemeSelector.vue';
+import LanguageSelector from './LanguageSelector.vue';
 </script>
 
 <style scoped>

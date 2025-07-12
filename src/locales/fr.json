@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "about": "À propos",
+    "language": "FR"
+  },
+  "home": {
+    "hero": {
+      "title": "Explorer les Merveilles de la Technologie",
+      "description": "Découvrez des perspectives, des tutoriels et des réflexions sur le développement web moderne, l'ingénierie logicielle et les technologies émergentes.",
+      "author": "Kevin Couton",
+      "readTime": "min de lecture"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Ici, je partage des perspectives, des tutoriels et des histoires sur la technologie et le développement.",
+      "categories": {
+        "all": "Tout",
+        "tech": "Tech",
+        "lifestyle": "Style de vie",
+        "tips": "Conseils et Astuces"
+      },
+      "loading": "Chargement des articles...",
+      "error": "Échec du chargement des articles",
+      "noArticles": "Aucun article trouvé."
+    }
+  },
+  "articles": {
+    "backToBlog": "← Retour au Blog",
+    "categories": {
+      "tech": "Tech",
+      "lifestyle": "Style de vie",
+      "tips": "Conseils et Astuces",
+      "development": "Stacks de Développement",
+      "frameworks": "Frameworks IT",
+      "coaching": "Coaching Professionnel"
+    }
+  },
+  "common": {
+    "readMore": "Lire la suite",
+    "author": "Kevin Couton",
+    "date": "Date",
+    "readTime": "Temps de lecture"
+  }
+}
