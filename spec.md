@@ -9,6 +9,62 @@ The blog should have a clean and minimalist design similar to the attached image
 - **Blog**: For hosting articles categorized by interests (starting with "Tech").
 - **About**: Featuring links to LinkedIn and GitHub.
 
+## Multilingual Support
+
+The blog will support multiple languages:
+- **English** (default)
+- **French** 
+- **Mandarin**
+
+## Content Strategy
+
+### Article Categories
+
+#### 1. IT Frameworks & Governance
+- **TOGAF** (The Open Group Architecture Framework)
+- **COBIT** (Control Objectives for Information and Related Technologies)
+- **ITIL** (Information Technology Infrastructure Library)
+- **PRINCE2** (Projects in Controlled Environments)
+
+#### 2. Development Stack Frameworks
+- **TanStack** (React Query, Table, Router ecosystem)
+- **JHipster** (Full-stack development platform)
+- **Next.js** (React framework)
+- **Nuxt.js** (Vue.js framework)
+- **Spring Boot** (Java framework)
+- **Django** (Python framework)
+
+#### 3. Professional Coaching
+- **Mentor vs Coach vs Manager** (Role differentiation)
+- **ICF Certification** (International Coaching Federation)
+- **EMCC Certification** (European Mentoring and Coaching Council)
+- **Coaching methodologies and approaches**
+
+### Article Structure
+
+Each article should include:
+- **History & Background**
+- **How to Apply/Implementation**
+- **Similarities & Differences** (comparative analysis)
+- **Clickable References** (external links, research papers)
+- **Research Papers** (academic references when available)
+- **SEO Optimization** (keywords, meta descriptions, structured content)
+
+### Article Features
+
+#### Reading Experience
+- **Reading Time Estimate** (words per minute calculation)
+- **Dynamic Table of Contents** (left sidebar navigation)
+- **Back to Top Button** (appears when scrolling down)
+- **Progress Indicator** (optional - shows reading progress)
+
+#### SEO & Accessibility
+- **Optimized headings** (H1, H2, H3 hierarchy)
+- **Meta descriptions** (155 characters max)
+- **Keywords integration** (natural placement)
+- **Alt text for images**
+- **Semantic HTML structure**
+
 ## Architecture
 
 - **Technology**: Vite, Vue.js
