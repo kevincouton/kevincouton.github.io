@@ -12,6 +12,7 @@ export interface BlogPost {
   metaDescription?: string;
   content?: string;
   articlePath?: string; // Path to the dedicated article page
+  version?: string; // Version of the article
 }
 
 export interface BlogCategory {
