@@ -27,4 +27,17 @@ const router = createRouter({
   routes
 })
 
+// Handle GitHub Pages SPA routing
+router.beforeEach((to, from, next) => {
+  // Check if this is a GitHub Pages redirect
+  if (to.query.redirect) {
+    // Remove the redirect query parameter and navigate to the actual path
+    const redirectPath = decodeURIComponent(to.query.redirect)
+    delete to.query.redirect
+    next({ path: redirectPath, query: to.query, hash: to.hash })
+  } else {
+    next()
+  }
+})
+
 export default router
