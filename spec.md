@@ -132,6 +132,99 @@ The blog should have a clean and minimalist design similar to the attached image
 8. Add SEO meta tags and optimization
 9. Test and refine responsive design
 
+## Best Practices
+
+### Vue.js Best Practices
+
+#### Component Structure
+- **Single File Components (SFC)**: Use `.vue` files with `<template>`, `<script>`, and `<style>` sections
+- **Composition API**: Prefer Composition API for complex logic and better TypeScript support
+- **Component Naming**: Use PascalCase for component names (e.g., `BlogPost.vue`)
+- **Props Validation**: Always define prop types and validation
+- **Event Naming**: Use kebab-case for custom events
+
+#### Code Organization
+- **Folder Structure**: Organize components logically (`components/`, `views/`, `composables/`)
+- **Composables**: Extract reusable logic into composables (use `use` prefix)
+- **Constants**: Store constants in separate files or at the top of components
+- **Reactive Data**: Use `ref()` for primitives, `reactive()` for objects
+
+#### Performance
+- **Lazy Loading**: Use dynamic imports for route-based code splitting
+- **v-memo**: Use for expensive list rendering when appropriate
+- **Computed Properties**: Prefer computed over methods for derived data
+- **Key Attribute**: Always use unique keys in v-for loops
+
+### Vite Best Practices
+
+#### Configuration
+- **Environment Variables**: Use `.env` files for environment-specific config
+- **Path Aliases**: Configure path aliases in `vite.config.js` for cleaner imports
+- **Build Optimization**: Configure build options for production optimization
+- **Plugin Management**: Keep plugins organized and documented
+
+#### Development
+- **Hot Module Replacement (HMR)**: Leverage Vite's fast HMR for development
+- **Asset Handling**: Use Vite's built-in asset handling for images, fonts, etc.
+- **CSS Preprocessing**: Configure CSS preprocessors when needed
+- **Bundle Analysis**: Use `yarn build --analyze` to analyze bundle size
+
+#### Performance
+- **Code Splitting**: Implement route-based and component-based code splitting
+- **Tree Shaking**: Ensure dependencies support tree shaking
+- **Import Optimization**: Use specific imports to reduce bundle size
+- **Static Assets**: Optimize images and other static assets
+
+### CSS Best Practices
+
+#### Scoped Styles
+- **Scoped CSS**: Use `scoped` attribute to prevent style leakage
+- **CSS Modules**: Consider CSS modules for component-specific styles
+- **Global Styles**: Keep global styles minimal and well-organized
+- **CSS Variables**: Use CSS custom properties for consistent theming
+
+#### Responsive Design
+- **Mobile First**: Design for mobile devices first, then enhance for larger screens
+- **Breakpoint Management**: Use consistent breakpoints across the application
+- **Flexible Units**: Use relative units (rem, em, %) for better scalability
+- **Container Queries**: Consider container queries for component-level responsiveness
+
+### Accessibility Best Practices
+
+#### Semantic HTML
+- **Proper Elements**: Use semantic HTML elements (`<main>`, `<article>`, `<section>`)
+- **Heading Hierarchy**: Maintain proper heading hierarchy (h1, h2, h3, etc.)
+- **Alt Text**: Provide descriptive alt text for images
+- **Focus Management**: Ensure proper focus management for keyboard navigation
+
+#### ARIA Support
+- **ARIA Labels**: Use ARIA labels for screen readers
+- **Role Attributes**: Add appropriate role attributes when needed
+- **Live Regions**: Use ARIA live regions for dynamic content updates
+- **Color Contrast**: Ensure sufficient color contrast for text readability
+
+### Security Best Practices
+
+#### Content Security
+- **XSS Prevention**: Sanitize user input and use v-html carefully
+- **Environment Variables**: Never expose sensitive data in client-side code
+- **Dependencies**: Regularly update dependencies and audit for vulnerabilities
+- **HTTPS**: Always use HTTPS in production
+
+### Testing Best Practices
+
+#### Unit Testing
+- **Test Coverage**: Aim for meaningful test coverage, not just high percentages
+- **Test Structure**: Use arrange-act-assert pattern for clear tests
+- **Mock Dependencies**: Mock external dependencies appropriately
+- **Component Testing**: Test component behavior, not implementation details
+
+#### End-to-End Testing
+- **User Flows**: Test critical user flows and interactions
+- **Cross-browser Testing**: Test across different browsers and devices
+- **Performance Testing**: Include performance tests for critical paths
+- **Accessibility Testing**: Automated accessibility testing integration
+
 ## Git Workflow Guidelines
 
 ### Commit Best Practices
