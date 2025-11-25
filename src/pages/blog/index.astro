@@ -2,53 +2,83 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			ul {
-				list-style-type: none;
-				padding: unset;
-			}
-			ul li {
-				display: flex;
-			}
-			ul li :global(time) {
-				flex: 0 0 130px;
-				font-style: italic;
-				color: #595959;
-			}
-			ul li a:visited {
-				color: #8e32dc;
-			}
-		</style>
+		<BaseHead title={`Articles - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<FormattedDate date={post.data.pubDate} />
-								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+		<main class="main-content">
+			<div class="container">
+				<header class="page-header">
+					<h1 class="page-title">All Articles</h1>
+					<p class="page-description">
+						Explore {posts.length} articles about DevOps, software craftsmanship, IT governance, and more.
+					</p>
+				</header>
+
+				<div class="posts-grid">
+					{posts.map((post) => (
+						<PostCard post={post} featured={post.data.featured} />
+					))}
+				</div>
+			</div>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.main-content {
+		min-height: calc(100vh - 300px);
+		padding: var(--space-4xl) 0;
+	}
+
+	.page-header {
+		max-width: var(--max-width-content);
+		margin: 0 auto var(--space-4xl);
+		text-align: center;
+	}
+
+	.page-title {
+		font-size: var(--font-size-4xl);
+		margin: 0 0 var(--space-md);
+		color: var(--color-text-primary);
+	}
+
+	.page-description {
+		font-size: var(--font-size-lg);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: var(--space-xl);
+	}
+
+	@media (max-width: 768px) {
+		.main-content {
+			padding: var(--space-3xl) 0;
+		}
+
+		.page-title {
+			font-size: var(--font-size-3xl);
+		}
+
+		.posts-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
