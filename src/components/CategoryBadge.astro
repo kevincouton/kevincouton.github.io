@@ -1,0 +1,72 @@
+---
+import { getCategoryById, type CategoryId } from '../data/categories';
+
+interface Props {
+	categoryId: CategoryId;
+	size?: 'sm' | 'md' | 'lg';
+}
+
+const { categoryId, size = 'md' } = Astro.props;
+const category = getCategoryById(categoryId);
+---
+
+<span class={`category-badge category-badge--${size}`} style={`--category-color: ${category.color}`}>
+	<span class="category-badge__icon" aria-hidden="true">{category.icon}</span>
+	<span class="category-badge__text">{category.name}</span>
+</span>
+
+<style>
+	.category-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-xs);
+		padding: var(--space-xs) var(--space-sm);
+		background-color: var(--color-bg-surface);
+		border: 1px solid var(--category-color);
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--category-color);
+		transition: all var(--transition-fast);
+		white-space: nowrap;
+	}
+
+	.category-badge:hover {
+		background-color: var(--category-color);
+		color: var(--color-bg-surface);
+	}
+
+	.category-badge--sm {
+		padding: 0.125rem var(--space-xs);
+		font-size: var(--font-size-xs);
+		gap: 0.125rem;
+	}
+
+	.category-badge--sm .category-badge__icon {
+		font-size: 0.875rem;
+	}
+
+	.category-badge--lg {
+		padding: var(--space-sm) var(--space-md);
+		font-size: var(--font-size-base);
+	}
+
+	.category-badge__icon {
+		line-height: 1;
+		font-size: 1rem;
+	}
+
+	.category-badge__text {
+		line-height: 1;
+	}
+
+	@media (max-width: 640px) {
+		.category-badge__text {
+			display: none;
+		}
+		
+		.category-badge {
+			padding: var(--space-xs);
+		}
+	}
+</style>

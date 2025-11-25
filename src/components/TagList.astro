@@ -1,0 +1,56 @@
+---
+interface Props {
+	tags: string[];
+	size?: 'sm' | 'md';
+}
+
+const { tags, size = 'md' } = Astro.props;
+---
+
+{tags.length > 0 && (
+	<ul class={`tag-list tag-list--${size}`}>
+		{tags.map((tag) => (
+			<li class="tag-list__item">
+				<span class="tag">#{tag}</span>
+			</li>
+		))}
+	</ul>
+)}
+
+<style>
+	.tag-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.tag-list__item {
+		margin: 0;
+	}
+
+	.tag {
+		display: inline-block;
+		padding: 0.25rem var(--space-sm);
+		font-size: var(--font-size-xs);
+		font-weight: 500;
+		color: var(--color-text-secondary);
+		background-color: var(--color-bg-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		transition: all var(--transition-fast);
+	}
+
+	.tag:hover {
+		color: var(--color-text-primary);
+		border-color: var(--color-accent);
+		background-color: rgba(0, 102, 204, 0.05);
+	}
+
+	.tag-list--sm .tag {
+		font-size: var(--font-size-xs);
+		padding: 0.125rem var(--space-xs);
+	}
+</style>
