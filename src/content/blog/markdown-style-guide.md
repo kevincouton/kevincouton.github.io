@@ -1,8 +1,12 @@
 ---
-title: "Markdown Style Guide"
-description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
+title: "Understanding ISO/IEC 27001 Compliance"
+description: "A comprehensive guide to ISO/IEC 27001 information security management system requirements and implementation."
 pubDate: "Jul 01 2022"
 heroImage: "/placeholder-hero.jpg"
+category: "governance"
+tags: ["ISO 27001", "compliance", "security", "ISMS"]
+featured: true
+readingTime: 12
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.

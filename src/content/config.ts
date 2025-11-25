@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { getCategoryIds } from '../data/categories';
 
 const blog = defineCollection({
 	// Type-check frontmatter using a schema
@@ -15,6 +16,21 @@ const blog = defineCollection({
 			.optional()
 			.transform((str) => (str ? new Date(str) : undefined)),
 		heroImage: z.string().optional(),
+		// New fields for enhanced content organization
+		category: z.enum([
+			'devops',
+			'craftsmanship',
+			'governance',
+			'handbooks',
+			'opensource',
+			'toolchains',
+			'security',
+			'personal',
+		]),
+		tags: z.array(z.string()).default([]),
+		featured: z.boolean().optional().default(false),
+		author: z.string().optional().default('Kevin Couton'),
+		readingTime: z.number().optional(),
 	}),
 });
 
