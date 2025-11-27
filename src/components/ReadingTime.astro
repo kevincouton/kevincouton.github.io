@@ -1,0 +1,33 @@
+---
+interface Props {
+	minutes: number;
+}
+
+const { minutes } = Astro.props;
+---
+
+<span class="reading-time">
+	<svg class="reading-time__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+		<path d="M8 4V8L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+	</svg>
+	<span class="reading-time__text">{minutes} min read</span>
+</span>
+
+<style>
+	.reading-time {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-xs);
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+	}
+
+	.reading-time__icon {
+		flex-shrink: 0;
+	}
+
+	.reading-time__text {
+		line-height: 1;
+	}
+</style>

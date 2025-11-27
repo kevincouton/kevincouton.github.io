@@ -1,0 +1,299 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME } from '../consts';
+import { getCollection } from 'astro:content';
+import { CATEGORY_LIST } from '../data/categories';
+
+// Get all blog posts, sorted by date
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Get featured posts
+const featuredPosts = allPosts.filter(post => post.data.featured).slice(0, 2);
+
+// Get recent posts (excluding featured)
+const recentPosts = allPosts.filter(post => !post.data.featured).slice(0, 6);
+
+// Count posts per category
+const categoryPostCounts = CATEGORY_LIST.map(category => ({
+	...category,
+	count: allPosts.filter(post => post.data.category === category.id).length
+}));
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="main-content">
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="hero__container">
+					<h1 class="hero__title">Hi, I'm {AUTHOR_NAME}</h1>
+					<p class="hero__subtitle">
+						I write about <strong>DevOps</strong>, <strong>platform engineering</strong>, and <strong>IT governance</strong>. 
+						Exploring modern infrastructure, security frameworks, and software craftsmanship.
+					</p>
+					<div class="hero__actions">
+						<a href="/blog" class="button button--primary">Read Articles</a>
+						<a href="/about" class="button button--secondary">About Me</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Featured Posts -->
+			{featuredPosts.length > 0 && (
+				<section class="section">
+					<div class="container">
+						<h2 class="section__title">Featured Articles</h2>
+						<div class="featured-grid">
+							{featuredPosts.map((post) => (
+								<PostCard post={post} featured={true} />
+							))}
+						</div>
+					</div>
+				</section>
+			)}
+
+			<!-- Recent Posts -->
+			<section class="section">
+				<div class="container">
+					<div class="section__header">
+						<h2 class="section__title">Recent Articles</h2>
+						<a href="/blog" class="section__link">View all →</a>
+					</div>
+					<div class="posts-grid">
+						{recentPosts.map((post) => (
+							<PostCard post={post} />
+						))}
+					</div>
+				</div>
+			</section>
+
+			<!-- Categories -->
+			<section class="section section--alt">
+				<div class="container">
+					<h2 class="section__title">Explore by Category</h2>
+					<div class="categories-grid">
+						{categoryPostCounts.map((category) => (
+							<a href={`/blog?category=${category.id}`} class="category-card">
+								<div class="category-card__icon" style={`color: ${category.color}`}>
+									{category.icon}
+								</div>
+								<h3 class="category-card__name">{category.name}</h3>
+								<p class="category-card__description">{category.description}</p>
+								<div class="category-card__count">
+									{category.count} {category.count === 1 ? 'article' : 'articles'}
+								</div>
+							</a>
+						))}
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.main-content {
+		min-height: calc(100vh - 300px);
+	}
+
+	/* Hero Section */
+	.hero {
+		padding: var(--space-4xl) 0;
+		background: linear-gradient(180deg, var(--color-bg-surface) 0%, var(--color-bg-primary) 100%);
+	}
+
+	.hero__container {
+		max-width: var(--max-width-narrow);
+		margin: 0 auto;
+		padding: 0 var(--space-lg);
+		text-align: center;
+	}
+
+	.hero__title {
+		font-size: var(--font-size-4xl);
+		margin-bottom: var(--space-lg);
+		color: var(--color-text-primary);
+	}
+
+	.hero__subtitle {
+		font-size: var(--font-size-lg);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+		margin-bottom: var(--space-2xl);
+	}
+
+	.hero__subtitle strong {
+		color: var(--color-text-primary);
+		font-weight: 600;
+	}
+
+	.hero__actions {
+		display: flex;
+		gap: var(--space-md);
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	/* Buttons */
+	.button {
+		display: inline-block;
+		padding: var(--space-sm) var(--space-xl);
+		font-size: var(--font-size-base);
+		font-weight: 500;
+		text-decoration: none;
+		border-radius: var(--radius-md);
+		transition: all var(--transition-fast);
+		border: 1px solid transparent;
+	}
+
+	.button--primary {
+		background-color: var(--color-accent);
+		color: white;
+	}
+
+	.button--primary:hover {
+		background-color: var(--color-accent-hover);
+		text-decoration: none;
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-md);
+	}
+
+	.button--secondary {
+		background-color: transparent;
+		color: var(--color-text-primary);
+		border-color: var(--color-border);
+	}
+
+	.button--secondary:hover {
+		background-color: var(--color-bg-surface);
+		border-color: var(--color-border-hover);
+		text-decoration: none;
+	}
+
+	/* Sections */
+	.section {
+		padding: var(--space-4xl) 0;
+	}
+
+	.section--alt {
+		background-color: var(--color-bg-surface);
+	}
+
+	.section__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: var(--space-2xl);
+	}
+
+	.section__title {
+		font-size: var(--font-size-3xl);
+		margin: 0 0 var(--space-2xl);
+	}
+
+	.section__link {
+		color: var(--color-accent);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color var(--transition-fast);
+	}
+
+	.section__link:hover {
+		color: var(--color-accent-hover);
+	}
+
+	/* Grids */
+	.featured-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: var(--space-xl);
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: var(--space-xl);
+	}
+
+	.categories-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: var(--space-lg);
+	}
+
+	/* Category Cards */
+	.category-card {
+		display: flex;
+		flex-direction: column;
+		padding: var(--space-xl);
+		background-color: var(--color-bg-primary);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		text-decoration: none;
+		transition: all var(--transition-base);
+	}
+
+	.category-card:hover {
+		border-color: var(--color-border-hover);
+		box-shadow: var(--shadow-md);
+		transform: translateY(-4px);
+	}
+
+	.category-card__icon {
+		font-size: 2.5rem;
+		margin-bottom: var(--space-md);
+		line-height: 1;
+	}
+
+	.category-card__name {
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+		color: var(--color-text-primary);
+		margin: 0 0 var(--space-sm);
+	}
+
+	.category-card__description {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+		margin: 0 0 var(--space-md);
+		flex: 1;
+	}
+
+	.category-card__count {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		font-weight: 500;
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			padding: var(--space-3xl) 0;
+		}
+
+		.hero__title {
+			font-size: var(--font-size-3xl);
+		}
+
+		.section {
+			padding: var(--space-3xl) 0;
+		}
+
+		.featured-grid,
+		.posts-grid,
+		.categories-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
