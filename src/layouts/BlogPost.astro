@@ -8,7 +8,9 @@ import CategoryBadge from '../components/CategoryBadge.astro';
 import TagList from '../components/TagList.astro';
 import ReadingTime from '../components/ReadingTime.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	category?: CollectionEntry<'blog'>['data']['category'];
+};
 
 const { title, description, pubDate, updatedDate, heroImage, category, tags, readingTime, author } = Astro.props;
 ---
@@ -23,9 +25,11 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags, rea
 		<main class="main-content">
 			<article class="article">
 				<header class="article__header">
-					<div class="article__meta-top">
-						<CategoryBadge categoryId={category} />
-					</div>
+					{category && (
+						<div class="article__meta-top">
+							<CategoryBadge categoryId={category} />
+						</div>
+					)}
 					
 					<h1 class="article__title">{title}</h1>
 					
