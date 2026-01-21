@@ -1,0 +1,371 @@
+---
+// Interactive Venn Diagram for IT Governance Frameworks
+---
+
+<div class="venn-container">
+	<svg viewBox="0 0 800 600" class="venn-diagram" role="img" aria-label="Venn diagram showing overlaps between ITIL, TOGAF, COBIT, and PRINCE2 frameworks">
+		<defs>
+			<!-- Gradients for each framework -->
+			<radialGradient id="itil-gradient">
+				<stop offset="0%" style="stop-color:#059669;stop-opacity:0.3" />
+				<stop offset="100%" style="stop-color:#059669;stop-opacity:0.1" />
+			</radialGradient>
+			<radialGradient id="togaf-gradient">
+				<stop offset="0%" style="stop-color:#0066CC;stop-opacity:0.3" />
+				<stop offset="100%" style="stop-color:#0066CC;stop-opacity:0.1" />
+			</radialGradient>
+			<radialGradient id="cobit-gradient">
+				<stop offset="0%" style="stop-color:#7C3AED;stop-opacity:0.3" />
+				<stop offset="100%" style="stop-color:#7C3AED;stop-opacity:0.1" />
+			</radialGradient>
+			<radialGradient id="prince2-gradient">
+				<stop offset="0%" style="stop-color:#DC2626;stop-opacity:0.3" />
+				<stop offset="100%" style="stop-color:#DC2626;stop-opacity:0.1" />
+			</radialGradient>
+		</defs>
+
+		<!-- ITIL Circle (Bottom Left) -->
+		<circle
+			class="framework-circle itil"
+			cx="280"
+			cy="360"
+			r="160"
+			fill="url(#itil-gradient)"
+			stroke="#059669"
+			stroke-width="3"
+			data-framework="itil"
+		/>
+
+		<!-- TOGAF Circle (Top Right) -->
+		<circle
+			class="framework-circle togaf"
+			cx="520"
+			cy="240"
+			r="160"
+			fill="url(#togaf-gradient)"
+			stroke="#0066CC"
+			stroke-width="3"
+			data-framework="togaf"
+		/>
+
+		<!-- COBIT Circle (Top Left) -->
+		<circle
+			class="framework-circle cobit"
+			cx="280"
+			cy="240"
+			r="160"
+			fill="url(#cobit-gradient)"
+			stroke="#7C3AED"
+			stroke-width="3"
+			data-framework="cobit"
+		/>
+
+		<!-- PRINCE2 Circle (Bottom Right) -->
+		<circle
+			class="framework-circle prince2"
+			cx="520"
+			cy="360"
+			r="160"
+			fill="url(#prince2-gradient)"
+			stroke="#DC2626"
+			stroke-width="3"
+			data-framework="prince2"
+		/>
+
+		<!-- Labels for each framework -->
+		<text x="200" y="480" class="framework-label" fill="#059669" font-weight="bold" font-size="24">ITIL</text>
+		<text x="190" y="500" class="framework-sublabel" fill="#059669" font-size="14">Service Mgmt</text>
+
+		<text x="590" y="160" class="framework-label" fill="#0066CC" font-weight="bold" font-size="24">TOGAF</text>
+		<text x="575" y="180" class="framework-sublabel" fill="#0066CC" font-size="14">Architecture</text>
+
+		<text x="195" y="160" class="framework-label" fill="#7C3AED" font-weight="bold" font-size="24">COBIT</text>
+		<text x="190" y="180" class="framework-sublabel" fill="#7C3AED" font-size="14">Governance</text>
+
+		<text x="580" y="480" class="framework-label" fill="#DC2626" font-weight="bold" font-size="24">PRINCE2</text>
+		<text x="575" y="500" class="framework-sublabel" fill="#DC2626" font-size="14">Projects</text>
+
+		<!-- Intersection labels (appearing on hover) -->
+		<text x="230" y="300" class="intersection-label" data-area="cobit-itil" opacity="0">Operational<tspan x="230" dy="18">Governance</tspan></text>
+		<text x="460" y="200" class="intersection-label" data-area="cobit-togaf" opacity="0">Architecture<tspan x="460" dy="18">Governance</tspan></text>
+		<text x="460" y="420" class="intersection-label" data-area="itil-prince2" opacity="0">Service<tspan x="460" dy="18">Delivery</tspan></text>
+		<text x="540" y="300" class="intersection-label" data-area="togaf-prince2" opacity="0">Architecture<tspan x="540" dy="18">Projects</tspan></text>
+
+		<!-- Center (all four) -->
+		<text x="365" y="305" class="center-label" opacity="0">Enterprise<tspan x="365" dy="18">IT</tspan></text>
+	</svg>
+
+	<!-- Interactive Legend -->
+	<div class="venn-legend">
+		<button class="legend-item" data-framework="itil">
+			<span class="legend-dot" style="background-color: #059669;"></span>
+			<span class="legend-text"><strong>ITIL</strong> - Service Management & Operations</span>
+		</button>
+		<button class="legend-item" data-framework="togaf">
+			<span class="legend-dot" style="background-color: #0066CC;"></span>
+			<span class="legend-text"><strong>TOGAF</strong> - Enterprise Architecture</span>
+		</button>
+		<button class="legend-item" data-framework="cobit">
+			<span class="legend-dot" style="background-color: #7C3AED;"></span>
+			<span class="legend-text"><strong>COBIT</strong> - IT Governance & Risk</span>
+		</button>
+		<button class="legend-item" data-framework="prince2">
+			<span class="legend-dot" style="background-color: #DC2626;"></span>
+			<span class="legend-text"><strong>PRINCE2</strong> - Project Management</span>
+		</button>
+	</div>
+
+	<!-- Info Panel -->
+	<div class="venn-info" id="venn-info">
+		<p class="info-hint">Click a framework or hover over intersections to explore relationships</p>
+	</div>
+</div>
+
+<style>
+	.venn-container {
+		margin: var(--space-3xl) 0;
+		padding: var(--space-xl);
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.venn-diagram {
+		width: 100%;
+		height: auto;
+		display: block;
+		margin-bottom: var(--space-xl);
+	}
+
+	.framework-circle {
+		cursor: pointer;
+		transition: all var(--transition-base);
+	}
+
+	.framework-circle:hover {
+		filter: brightness(1.2);
+		stroke-width: 4;
+	}
+
+	.framework-circle.active {
+		filter: brightness(1.3);
+		stroke-width: 5;
+	}
+
+	.framework-label, .framework-sublabel {
+		pointer-events: none;
+		user-select: none;
+	}
+
+	.intersection-label, .center-label {
+		font-size: 13px;
+		font-weight: 600;
+		fill: var(--color-text-primary);
+		text-anchor: middle;
+		transition: opacity var(--transition-fast);
+		pointer-events: none;
+	}
+
+	.venn-legend {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: var(--space-sm);
+		margin-bottom: var(--space-lg);
+	}
+
+	.legend-item {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+		padding: var(--space-sm) var(--space-md);
+		background: transparent;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+		text-align: left;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+	}
+
+	.legend-item:hover {
+		border-color: var(--color-border-hover);
+		background: var(--color-bg-primary);
+	}
+
+	.legend-item.active {
+		border-color: currentColor;
+		background: var(--color-bg-primary);
+	}
+
+	.legend-dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		flex-shrink: 0;
+	}
+
+	.legend-text {
+		flex: 1;
+		line-height: var(--line-height-snug);
+	}
+
+	.venn-info {
+		padding: var(--space-md);
+		background: var(--color-code-bg);
+		border-radius: var(--radius-md);
+		border-left: 3px solid var(--color-accent);
+		min-height: 60px;
+	}
+
+	.info-hint {
+		margin: 0;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		font-style: italic;
+	}
+
+	.venn-info p {
+		margin: 0;
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.venn-info strong {
+		color: var(--color-text-primary);
+		font-weight: 600;
+	}
+
+	@media (max-width: 768px) {
+		.venn-container {
+			padding: var(--space-md);
+		}
+
+		.venn-legend {
+			grid-template-columns: 1fr;
+		}
+
+		.framework-label {
+			font-size: 20px;
+		}
+
+		.framework-sublabel {
+			font-size: 12px;
+		}
+	}
+</style>
+
+<script>
+	// Interactive behavior
+	const circles = document.querySelectorAll('.framework-circle');
+	const legendItems = document.querySelectorAll('.legend-item');
+	const infoPanel = document.getElementById('venn-info');
+	const intersectionLabels = document.querySelectorAll('.intersection-label');
+	const centerLabel = document.querySelector('.center-label');
+
+	const frameworkInfo = {
+		itil: {
+			title: 'ITIL (IT Infrastructure Library)',
+			description: 'Service management framework for running IT operations predictably and efficiently. Focuses on incident management, change control, problem management, and the service lifecycle.'
+		},
+		togaf: {
+			title: 'TOGAF (The Open Group Architecture Framework)',
+			description: 'Enterprise architecture methodology for designing and governing technology landscapes. Provides the Architecture Development Method (ADM) for creating baseline and target architectures.'
+		},
+		cobit: {
+			title: 'COBIT (Control Objectives for Information and Related Technologies)',
+			description: 'IT governance and risk management framework that helps organizations align IT with business objectives, manage risk, and meet compliance requirements. Essential for audits and board reporting.'
+		},
+		prince2: {
+			title: 'PRINCE2 (Projects IN Controlled Environments)',
+			description: 'Project management methodology for delivering projects on time, on budget, with controlled scope. Emphasizes business justification, defined roles, and management by exception.'
+		}
+	};
+
+	function showInfo(framework) {
+		if (!infoPanel || !frameworkInfo[framework]) return;
+
+		const info = frameworkInfo[framework];
+		infoPanel.innerHTML = `
+			<p><strong>${info.title}</strong></p>
+			<p>${info.description}</p>
+		`;
+	}
+
+	function clearActive() {
+		circles.forEach(c => c.classList.remove('active'));
+		legendItems.forEach(l => l.classList.remove('active'));
+	}
+
+	// Click handlers
+	circles.forEach(circle => {
+		circle.addEventListener('click', () => {
+			const framework = circle.dataset.framework;
+			const wasActive = circle.classList.contains('active');
+
+			clearActive();
+
+			if (!wasActive) {
+				circle.classList.add('active');
+				const matchingLegend = Array.from(legendItems).find(
+					item => item.dataset.framework === framework
+				);
+				if (matchingLegend) {
+					matchingLegend.classList.add('active');
+				}
+				showInfo(framework);
+			} else {
+				infoPanel.innerHTML = '<p class="info-hint">Click a framework or hover over intersections to explore relationships</p>';
+			}
+		});
+	});
+
+	legendItems.forEach(item => {
+		item.addEventListener('click', () => {
+			const framework = item.dataset.framework;
+			const matchingCircle = Array.from(circles).find(
+				circle => circle.dataset.framework === framework
+			);
+
+			if (matchingCircle) {
+				matchingCircle.click();
+			}
+		});
+	});
+
+	// Show intersection labels on hover
+	const svg = document.querySelector('.venn-diagram');
+	if (svg) {
+		svg.addEventListener('mousemove', (e) => {
+			const rect = svg.getBoundingClientRect();
+			const x = ((e.clientX - rect.left) / rect.width) * 800;
+			const y = ((e.clientY - rect.top) / rect.height) * 600;
+
+			// Reset all labels
+			intersectionLabels.forEach(label => label.setAttribute('opacity', '0'));
+			centerLabel?.setAttribute('opacity', '0');
+
+			// Show relevant intersection label based on position
+			if (x > 220 && x < 340 && y > 260 && y < 340) {
+				// COBIT-ITIL
+				const label = document.querySelector('[data-area="cobit-itil"]');
+				if (label) label.setAttribute('opacity', '1');
+			} else if (x > 420 && x < 580 && y > 180 && y < 260) {
+				// COBIT-TOGAF
+				const label = document.querySelector('[data-area="cobit-togaf"]');
+				if (label) label.setAttribute('opacity', '1');
+			} else if (x > 420 && x < 540 && y > 360 && y < 440) {
+				// ITIL-PRINCE2
+				const label = document.querySelector('[data-area="itil-prince2"]');
+				if (label) label.setAttribute('opacity', '1');
+			} else if (x > 480 && x < 580 && y > 260 && y < 340) {
+				// TOGAF-PRINCE2
+				const label = document.querySelector('[data-area="togaf-prince2"]');
+				if (label) label.setAttribute('opacity', '1');
+			} else if (x > 340 && x < 460 && y > 260 && y < 340) {
+				// Center (all four)
+				if (centerLabel) centerLabel.setAttribute('opacity', '1');
+			}
+		});
+	}
+</script>
