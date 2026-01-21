@@ -1,0 +1,294 @@
+---
+// Visual DORA Metrics Dashboard Mockup
+---
+
+<div class="dora-dashboard">
+	<div class="dashboard-header">
+		<h3 class="dashboard-title">DORA Metrics Dashboard Example</h3>
+		<p class="dashboard-subtitle">What elite teams' metrics look like in practice</p>
+	</div>
+
+	<div class="metrics-grid">
+		<!-- Deployment Frequency -->
+		<div class="metric-card">
+			<div class="metric-icon" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+					<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+				</svg>
+			</div>
+			<div class="metric-content">
+				<div class="metric-label">Deployment Frequency</div>
+				<div class="metric-value">127 <span class="metric-unit">this week</span></div>
+				<div class="metric-trend positive">↑ 15% vs last week</div>
+			</div>
+			<div class="metric-chart">
+				<div class="chart-bar" style="height: 40%;"></div>
+				<div class="chart-bar" style="height: 55%;"></div>
+				<div class="chart-bar" style="height: 70%;"></div>
+				<div class="chart-bar" style="height: 85%;"></div>
+				<div class="chart-bar" style="height: 100%;"></div>
+			</div>
+		</div>
+
+		<!-- Lead Time -->
+		<div class="metric-card">
+			<div class="metric-icon" style="background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+					<circle cx="12" cy="12" r="10"/>
+					<polyline points="12 6 12 12 16 14"/>
+				</svg>
+			</div>
+			<div class="metric-content">
+				<div class="metric-label">Lead Time for Changes</div>
+				<div class="metric-value">3.2 <span class="metric-unit">hours</span></div>
+				<div class="metric-trend positive">↓ 22% vs last week</div>
+			</div>
+			<div class="metric-chart">
+				<div class="chart-bar" style="height: 100%;"></div>
+				<div class="chart-bar" style="height: 85%;"></div>
+				<div class="chart-bar" style="height: 65%;"></div>
+				<div class="chart-bar" style="height: 55%;"></div>
+				<div class="chart-bar" style="height: 45%;"></div>
+			</div>
+		</div>
+
+		<!-- MTTR -->
+		<div class="metric-card">
+			<div class="metric-icon" style="background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+					<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+				</svg>
+			</div>
+			<div class="metric-content">
+				<div class="metric-label">Mean Time to Restore</div>
+				<div class="metric-value">42 <span class="metric-unit">minutes</span></div>
+				<div class="metric-trend positive">↓ 8% vs last week</div>
+			</div>
+			<div class="metric-chart">
+				<div class="chart-bar" style="height: 70%;"></div>
+				<div class="chart-bar" style="height: 55%;"></div>
+				<div class="chart-bar" style="height: 60%;"></div>
+				<div class="chart-bar" style="height: 50%;"></div>
+				<div class="chart-bar" style="height: 45%;"></div>
+			</div>
+		</div>
+
+		<!-- Change Failure Rate -->
+		<div class="metric-card">
+			<div class="metric-icon" style="background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+					<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+					<line x1="12" y1="9" x2="12" y2="13"/>
+					<line x1="12" y1="17" x2="12.01" y2="17"/>
+				</svg>
+			</div>
+			<div class="metric-content">
+				<div class="metric-label">Change Failure Rate</div>
+				<div class="metric-value">8.3 <span class="metric-unit">%</span></div>
+				<div class="metric-trend neutral">→ Stable</div>
+			</div>
+			<div class="metric-chart">
+				<div class="chart-bar" style="height: 45%;"></div>
+				<div class="chart-bar" style="height: 50%;"></div>
+				<div class="chart-bar" style="height: 45%;"></div>
+				<div class="chart-bar" style="height: 42%;"></div>
+				<div class="chart-bar" style="height: 40%;"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="dashboard-insights">
+		<div class="insight-box">
+			<strong>📊 Overall Status:</strong> Elite Performer (Top 10%)
+		</div>
+		<div class="insight-box">
+			<strong>🎯 Focus Area:</strong> Continue reducing lead time - target under 2 hours
+		</div>
+		<div class="insight-box">
+			<strong>🏆 Recent Win:</strong> Deploy frequency up 15% after CI pipeline optimization
+		</div>
+	</div>
+
+	<div class="dashboard-footer">
+		<p class="footer-note">
+			<strong>Pro tip:</strong> Track trends, not absolutes. A consistent upward trend in deployment frequency + stable or improving failure rate = healthy velocity.
+		</p>
+	</div>
+</div>
+
+<style>
+	.dora-dashboard {
+		margin: var(--space-3xl) 0;
+		padding: var(--space-xl);
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.dashboard-header {
+		text-align: center;
+		margin-bottom: var(--space-2xl);
+	}
+
+	.dashboard-title {
+		font-size: var(--font-size-2xl);
+		margin: 0 0 var(--space-sm);
+		color: var(--color-text-primary);
+	}
+
+	.dashboard-subtitle {
+		font-size: var(--font-size-base);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.metrics-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: var(--space-lg);
+		margin-bottom: var(--space-2xl);
+	}
+
+	.metric-card {
+		padding: var(--space-lg);
+		background: var(--color-bg-primary);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		transition: all var(--transition-fast);
+	}
+
+	.metric-card:hover {
+		border-color: var(--color-accent);
+		box-shadow: var(--shadow-md);
+	}
+
+	.metric-icon {
+		width: 56px;
+		height: 56px;
+		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: var(--space-md);
+	}
+
+	.metric-content {
+		margin-bottom: var(--space-md);
+	}
+
+	.metric-label {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		margin-bottom: var(--space-xs);
+	}
+
+	.metric-value {
+		font-size: var(--font-size-3xl);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		line-height: 1;
+		margin-bottom: var(--space-xs);
+	}
+
+	.metric-unit {
+		font-size: var(--font-size-base);
+		font-weight: 400;
+		color: var(--color-text-secondary);
+	}
+
+	.metric-trend {
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+	}
+
+	.metric-trend.positive {
+		color: #059669;
+	}
+
+	.metric-trend.negative {
+		color: #DC2626;
+	}
+
+	.metric-trend.neutral {
+		color: var(--color-text-secondary);
+	}
+
+	.metric-chart {
+		display: flex;
+		align-items: flex-end;
+		gap: var(--space-xs);
+		height: 50px;
+	}
+
+	.chart-bar {
+		flex: 1;
+		background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+		border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+		opacity: 0.7;
+		transition: all var(--transition-fast);
+	}
+
+	.metric-card:hover .chart-bar {
+		opacity: 1;
+	}
+
+	.dashboard-insights {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: var(--space-md);
+		margin-bottom: var(--space-xl);
+	}
+
+	.insight-box {
+		padding: var(--space-md);
+		background: var(--color-code-bg);
+		border-left: 4px solid var(--color-accent);
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.insight-box strong {
+		color: var(--color-text-primary);
+	}
+
+	.dashboard-footer {
+		padding: var(--space-lg);
+		background: var(--color-code-bg);
+		border-radius: var(--radius-md);
+		text-align: center;
+	}
+
+	.footer-note {
+		margin: 0;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.footer-note strong {
+		color: var(--color-accent);
+	}
+
+	@media (max-width: 768px) {
+		.dora-dashboard {
+			padding: var(--space-md);
+		}
+
+		.dashboard-title {
+			font-size: var(--font-size-xl);
+		}
+
+		.metrics-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.dashboard-insights {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

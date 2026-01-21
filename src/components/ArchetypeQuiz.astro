@@ -1,0 +1,445 @@
+---
+// Interactive Staff+ Archetype Quiz
+---
+
+<div class="archetype-quiz">
+	<div class="quiz-header">
+		<h3 class="quiz-title">Which Staff+ Archetype Fits You?</h3>
+		<p class="quiz-subtitle">Answer 6 questions to discover your natural strengths</p>
+	</div>
+
+	<div class="quiz-questions" id="quiz-questions">
+		<!-- Question 1 -->
+		<div class="question" data-question="1">
+			<p class="question-text"><strong>Q1:</strong> What energizes you most?</p>
+			<div class="options">
+				<label class="option">
+					<input type="radio" name="q1" value="techlead" />
+					<span>Shipping features and seeing my designs in production</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q1" value="architect" />
+					<span>Designing elegant systems and abstractions</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q1" value="solver" />
+					<span>Solving urgent, high-stakes problems under pressure</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q1" value="righthand" />
+					<span>Making the organization run smoothly</span>
+				</label>
+			</div>
+		</div>
+
+		<!-- Question 2 -->
+		<div class="question" data-question="2">
+			<p class="question-text"><strong>Q2:</strong> How do you prefer to work?</p>
+			<div class="options">
+				<label class="option">
+					<input type="radio" name="q2" value="techlead" />
+					<span>Leading a team toward a shared goal</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q2" value="architect" />
+					<span>Independently, writing docs and designing systems</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q2" value="solver" />
+					<span>Jumping between projects, parachuting into fires</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q2" value="righthand" />
+					<span>Behind the scenes, solving organizational problems</span>
+				</label>
+			</div>
+		</div>
+
+		<!-- Question 3 -->
+		<div class="question" data-question="3">
+			<p class="question-text"><strong>Q3:</strong> What scope appeals to you?</p>
+			<div class="options">
+				<label class="option">
+					<input type="radio" name="q3" value="techlead" />
+					<span>Owning a critical project end-to-end (3-12 months)</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q3" value="architect" />
+					<span>Setting multi-year architectural direction</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q3" value="solver" />
+					<span>Fixing immediate crises (weeks to months)</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q3" value="righthand" />
+					<span>Improving org-wide processes and culture</span>
+				</label>
+			</div>
+		</div>
+
+		<!-- Question 4 -->
+		<div class="question" data-question="4">
+			<p class="question-text"><strong>Q4:</strong> What's your relationship with meetings?</p>
+			<div class="options">
+				<label class="option">
+					<input type="radio" name="q4" value="techlead" />
+					<span>Necessary—I coordinate the team through them</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q4" value="architect" />
+					<span>Prefer async—I'd rather write RFCs than meet</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q4" value="solver" />
+					<span>Fine with ad-hoc meetings to unblock urgent issues</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q4" value="righthand" />
+					<span>Part of the job—I spend a lot of time aligning stakeholders</span>
+				</label>
+			</div>
+		</div>
+
+		<!-- Question 5 -->
+		<div class="question" data-question="5">
+			<p class="question-text"><strong>Q5:</strong> What kind of impact do you want?</p>
+			<div class="options">
+				<label class="option">
+					<input type="radio" name="q5" value="techlead" />
+					<span>Visible, measurable—shipped features users interact with</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q5" value="architect" />
+					<span>Long-term—foundational systems that last years</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q5" value="solver" />
+					<span>Immediate—unblocking teams and saving the day</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q5" value="righthand" />
+					<span>Organizational—making teams more effective</span>
+				</label>
+			</div>
+		</div>
+
+		<!-- Question 6 -->
+		<div class="question" data-question="6">
+			<p class="question-text"><strong>Q6:</strong> What's your coding preference?</p>
+			<div class="options">
+				<label class="option">
+					<input type="radio" name="q6" value="techlead" />
+					<span>Prototyping and critical path work (30-40% time)</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q6" value="architect" />
+					<span>Reference implementations and proof-of-concepts (20-30% time)</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q6" value="solver" />
+					<span>Deep debugging and performance optimization (40-60% time)</span>
+				</label>
+				<label class="option">
+					<input type="radio" name="q6" value="righthand" />
+					<span>Minimal coding—I focus on coordination (10-20% time)</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<button class="quiz-submit" id="quiz-submit" disabled>Show My Archetype</button>
+
+	<div class="quiz-results" id="quiz-results" style="display: none;">
+		<div class="result-header">
+			<h4 class="result-title">Your Staff+ Archetype:</h4>
+			<div class="result-archetype" id="result-archetype"></div>
+		</div>
+		<div class="result-description" id="result-description"></div>
+		<button class="quiz-reset" id="quiz-reset">Retake Quiz</button>
+	</div>
+</div>
+
+<style>
+	.archetype-quiz {
+		margin: var(--space-3xl) 0;
+		padding: var(--space-xl);
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.quiz-header {
+		text-align: center;
+		margin-bottom: var(--space-2xl);
+	}
+
+	.quiz-title {
+		font-size: var(--font-size-2xl);
+		margin: 0 0 var(--space-sm);
+		color: var(--color-text-primary);
+	}
+
+	.quiz-subtitle {
+		font-size: var(--font-size-base);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.question {
+		margin-bottom: var(--space-2xl);
+		padding: var(--space-lg);
+		background: var(--color-code-bg);
+		border-radius: var(--radius-md);
+	}
+
+	.question-text {
+		font-size: var(--font-size-lg);
+		margin: 0 0 var(--space-md);
+		color: var(--color-text-primary);
+	}
+
+	.options {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
+	}
+
+	.option {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+		padding: var(--space-sm) var(--space-md);
+		background: var(--color-bg-surface);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.option:hover {
+		border-color: var(--color-accent);
+		background: var(--color-bg-primary);
+	}
+
+	.option input[type="radio"] {
+		cursor: pointer;
+	}
+
+	.option input[type="radio"]:checked + span {
+		font-weight: 600;
+		color: var(--color-accent);
+	}
+
+	.option:has(input:checked) {
+		border-color: var(--color-accent);
+		background: var(--color-bg-primary);
+	}
+
+	.quiz-submit, .quiz-reset {
+		display: block;
+		width: 100%;
+		padding: var(--space-md) var(--space-xl);
+		background: var(--color-accent);
+		color: white;
+		border: none;
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.quiz-submit:hover:not(:disabled), .quiz-reset:hover {
+		background: var(--color-accent-hover);
+		transform: translateY(-2px);
+	}
+
+	.quiz-submit:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.quiz-results {
+		margin-top: var(--space-2xl);
+		padding: var(--space-xl);
+		background: var(--color-code-bg);
+		border-radius: var(--radius-lg);
+		border: 2px solid var(--color-accent);
+	}
+
+	.result-header {
+		text-align: center;
+		margin-bottom: var(--space-xl);
+	}
+
+	.result-title {
+		font-size: var(--font-size-lg);
+		margin: 0 0 var(--space-md);
+		color: var(--color-text-secondary);
+		font-weight: 500;
+	}
+
+	.result-archetype {
+		font-size: var(--font-size-3xl);
+		font-weight: 700;
+		color: var(--color-accent);
+		margin-bottom: var(--space-md);
+	}
+
+	.result-description {
+		margin-bottom: var(--space-xl);
+	}
+
+	.result-description p {
+		margin: 0 0 var(--space-md);
+		line-height: var(--line-height-relaxed);
+		color: var(--color-text-secondary);
+	}
+
+	.result-description strong {
+		color: var(--color-text-primary);
+	}
+
+	.quiz-reset {
+		background: var(--color-text-secondary);
+		margin-top: var(--space-lg);
+	}
+
+	@media (max-width: 768px) {
+		.archetype-quiz {
+			padding: var(--space-md);
+		}
+
+		.quiz-title {
+			font-size: var(--font-size-xl);
+		}
+
+		.question {
+			padding: var(--space-md);
+		}
+	}
+</style>
+
+<script>
+	const questions = document.querySelectorAll('.question');
+	const submitBtn = document.getElementById('quiz-submit');
+	const resetBtn = document.getElementById('quiz-reset');
+	const questionsDiv = document.getElementById('quiz-questions');
+	const resultsDiv = document.getElementById('quiz-results');
+	const resultArchetype = document.getElementById('result-archetype');
+	const resultDescription = document.getElementById('result-description');
+
+	const archetypeInfo = {
+		techlead: {
+			name: 'The Tech Lead',
+			description: `
+				<p><strong>You're a natural coordinator and executor.</strong> You thrive when leading projects end-to-end, making technical decisions, and shipping features that users interact with.</p>
+				<p><strong>Your superpowers:</strong> Project execution, technical depth, team coordination, and stakeholder communication. You're the person who keeps things moving.</p>
+				<p><strong>Watch out for:</strong> Meeting overload and loss of deep coding time. Tech Leads can get pulled into coordination hell. Protect your maker time.</p>
+				<p><strong>Next steps:</strong> Focus on increasing your scope. Lead multi-team initiatives. Write design docs that influence beyond your immediate team.</p>
+			`
+		},
+		architect: {
+			name: 'The Architect',
+			description: `
+				<p><strong>You're a systems thinker and visionary.</strong> You thrive when designing long-term architectural strategies, defining standards, and creating foundational systems.</p>
+				<p><strong>Your superpowers:</strong> Abstract thinking, long-term vision, system design, and influence through documentation. You think years ahead.</p>
+				<p><strong>Watch out for:</strong> Ivory tower syndrome. Architects can become disconnected from reality. Stay close to implementation and listen to engineers on the ground.</p>
+				<p><strong>Next steps:</strong> Build cross-organizational influence. Write RFCs that span multiple teams. Mentor other Staff engineers on architectural thinking.</p>
+			`
+		},
+		solver: {
+			name: 'The Solver',
+			description: `
+				<p><strong>You're a firefighter and problem-solving specialist.</strong> You thrive in crisis mode, debugging the impossible, and rescuing failing projects.</p>
+				<p><strong>Your superpowers:</strong> Deep debugging, rapid context acquisition, calm under pressure, and breadth across systems. You're the "break glass in case of emergency" person.</p>
+				<p><strong>Watch out for:</strong> Burnout and lack of long-term ownership. Jumping between fires is exciting but exhausting. Make sure you're building, not just fixing.</p>
+				<p><strong>Next steps:</strong> Choose when to parachute in vs. when to delegate. Mentor others on debugging techniques. Consider transitioning toward architecture or tech lead for more ownership.</p>
+			`
+		},
+		righthand: {
+			name: 'The Right Hand',
+			description: `
+				<p><strong>You're an organizational operator and force multiplier.</strong> You thrive when improving processes, solving organizational problems, and executing leadership's vision.</p>
+				<p><strong>Your superpowers:</strong> Organizational savvy, execution, versatility, and trust. You're the person who makes the engine run smoothly.</p>
+				<p><strong>Watch out for:</strong> Invisibility and lack of credit. Your work is often behind the scenes. Make sure your manager understands your impact.</p>
+				<p><strong>Next steps:</strong> Build visibility through artifacts (process docs, runbooks, post-mortems). Consider transitioning to engineering management—you already do much of that work.</p>
+			`
+		}
+	};
+
+	// Enable submit button when all questions answered
+	function checkAllAnswered() {
+		const allAnswered = Array.from(questions).every(q => {
+			const questionNum = q.dataset.question;
+			return document.querySelector(`input[name="q${questionNum}"]:checked`) !== null;
+		});
+
+		if (submitBtn) {
+			submitBtn.disabled = !allAnswered;
+		}
+	}
+
+	// Add change listeners to all radio buttons
+	document.querySelectorAll('input[type="radio"]').forEach(radio => {
+		radio.addEventListener('change', checkAllAnswered);
+	});
+
+	// Calculate archetype based on answers
+	function calculateArchetype() {
+		const scores = { techlead: 0, architect: 0, solver: 0, righthand: 0 };
+
+		questions.forEach(q => {
+			const questionNum = q.dataset.question;
+			const selected = document.querySelector(`input[name="q${questionNum}"]:checked`);
+			if (selected) {
+				scores[selected.value]++;
+			}
+		});
+
+		// Find the archetype with highest score
+		let maxScore = 0;
+		let winningArchetype = 'techlead';
+		for (const [archetype, score] of Object.entries(scores)) {
+			if (score > maxScore) {
+				maxScore = score;
+				winningArchetype = archetype;
+			}
+		}
+
+		return winningArchetype;
+	}
+
+	// Show results
+	if (submitBtn) {
+		submitBtn.addEventListener('click', () => {
+			const archetype = calculateArchetype();
+			const info = archetypeInfo[archetype];
+
+			if (resultArchetype) resultArchetype.textContent = info.name;
+			if (resultDescription) resultDescription.innerHTML = info.description;
+
+			if (questionsDiv) questionsDiv.style.display = 'none';
+			if (submitBtn) submitBtn.style.display = 'none';
+			if (resultsDiv) resultsDiv.style.display = 'block';
+		});
+	}
+
+	// Reset quiz
+	if (resetBtn) {
+		resetBtn.addEventListener('click', () => {
+			// Clear all selections
+			document.querySelectorAll('input[type="radio"]').forEach(radio => {
+				radio.checked = false;
+			});
+
+			if (questionsDiv) questionsDiv.style.display = 'block';
+			if (submitBtn) {
+				submitBtn.style.display = 'block';
+				submitBtn.disabled = true;
+			}
+			if (resultsDiv) resultsDiv.style.display = 'none';
+		});
+	}
+</script>

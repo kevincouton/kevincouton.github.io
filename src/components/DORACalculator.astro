@@ -1,0 +1,386 @@
+---
+// Interactive DORA Metrics Calculator
+---
+
+<div class="dora-calculator">
+	<div class="calculator-header">
+		<h3 class="calculator-title">Calculate Your DORA Score</h3>
+		<p class="calculator-subtitle">Input your metrics to see where you stand</p>
+	</div>
+
+	<div class="calculator-form">
+		<div class="metric-input">
+			<label for="deploy-freq">
+				<strong>Deployment Frequency</strong>
+				<span class="label-hint">How often do you deploy to production?</span>
+			</label>
+			<select id="deploy-freq" class="input-select">
+				<option value="">Select frequency...</option>
+				<option value="4">Multiple deploys per day</option>
+				<option value="3">Once per day to once per week</option>
+				<option value="2">Once per week to once per month</option>
+				<option value="1">Less than once per month</option>
+			</select>
+		</div>
+
+		<div class="metric-input">
+			<label for="lead-time">
+				<strong>Lead Time for Changes</strong>
+				<span class="label-hint">Time from commit to production?</span>
+			</label>
+			<select id="lead-time" class="input-select">
+				<option value="">Select lead time...</option>
+				<option value="4">Less than 1 hour</option>
+				<option value="3">Less than 1 day</option>
+				<option value="2">1 day to 1 week</option>
+				<option value="1">More than 1 week</option>
+			</select>
+		</div>
+
+		<div class="metric-input">
+			<label for="mttr">
+				<strong>Mean Time to Restore (MTTR)</strong>
+				<span class="label-hint">How quickly do you recover from failures?</span>
+			</label>
+			<select id="mttr" class="input-select">
+				<option value="">Select MTTR...</option>
+				<option value="4">Less than 1 hour</option>
+				<option value="3">Less than 1 day</option>
+				<option value="2">1 day to 1 week</option>
+				<option value="1">More than 1 week</option>
+			</select>
+		</div>
+
+		<div class="metric-input">
+			<label for="cfr">
+				<strong>Change Failure Rate</strong>
+				<span class="label-hint">% of deployments causing failures?</span>
+			</label>
+			<select id="cfr" class="input-select">
+				<option value="">Select failure rate...</option>
+				<option value="4">0-15%</option>
+				<option value="3">16-30%</option>
+				<option value="2">31-45%</option>
+				<option value="1">46%+</option>
+			</select>
+		</div>
+
+		<button class="calculator-button" id="calculate-btn" disabled>Calculate My DORA Level</button>
+	</div>
+
+	<div class="calculator-results" id="results" style="display: none;">
+		<div class="result-badge" id="result-badge"></div>
+		<div class="result-description" id="result-description"></div>
+		<div class="result-recommendations" id="result-recommendations"></div>
+		<button class="calculator-reset" id="reset-btn">Recalculate</button>
+	</div>
+</div>
+
+<style>
+	.dora-calculator {
+		margin: var(--space-3xl) 0;
+		padding: var(--space-xl);
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.calculator-header {
+		text-align: center;
+		margin-bottom: var(--space-2xl);
+	}
+
+	.calculator-title {
+		font-size: var(--font-size-2xl);
+		margin: 0 0 var(--space-sm);
+		color: var(--color-text-primary);
+	}
+
+	.calculator-subtitle {
+		font-size: var(--font-size-base);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.calculator-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+	}
+
+	.metric-input label {
+		display: block;
+		margin-bottom: var(--space-sm);
+		color: var(--color-text-primary);
+	}
+
+	.label-hint {
+		display: block;
+		font-size: var(--font-size-sm);
+		font-weight: normal;
+		color: var(--color-text-secondary);
+		margin-top: var(--space-xs);
+	}
+
+	.input-select {
+		width: 100%;
+		padding: var(--space-sm) var(--space-md);
+		background: var(--color-bg-primary);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-base);
+		color: var(--color-text-primary);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.input-select:hover {
+		border-color: var(--color-accent);
+	}
+
+	.input-select:focus {
+		outline: none;
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+	}
+
+	.calculator-button, .calculator-reset {
+		width: 100%;
+		padding: var(--space-md) var(--space-xl);
+		background: var(--color-accent);
+		color: white;
+		border: none;
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+		cursor: pointer;
+		transition: all var(--transition-fast);
+		margin-top: var(--space-md);
+	}
+
+	.calculator-button:hover:not(:disabled), .calculator-reset:hover {
+		background: var(--color-accent-hover);
+		transform: translateY(-2px);
+	}
+
+	.calculator-button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.calculator-results {
+		margin-top: var(--space-2xl);
+		padding: var(--space-xl);
+		background: var(--color-code-bg);
+		border-radius: var(--radius-lg);
+		border: 2px solid var(--color-accent);
+	}
+
+	.result-badge {
+		text-align: center;
+		padding: var(--space-lg);
+		border-radius: var(--radius-md);
+		margin-bottom: var(--space-lg);
+		font-size: var(--font-size-3xl);
+		font-weight: 700;
+	}
+
+	.result-badge.elite {
+		background: linear-gradient(135deg, #059669 0%, #047857 100%);
+		color: white;
+	}
+
+	.result-badge.high {
+		background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+		color: white;
+	}
+
+	.result-badge.medium {
+		background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
+		color: white;
+	}
+
+	.result-badge.low {
+		background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+		color: white;
+	}
+
+	.result-description {
+		margin-bottom: var(--space-xl);
+	}
+
+	.result-description p {
+		margin: 0 0 var(--space-md);
+		line-height: var(--line-height-relaxed);
+		color: var(--color-text-secondary);
+	}
+
+	.result-description strong {
+		color: var(--color-text-primary);
+	}
+
+	.result-recommendations {
+		padding: var(--space-lg);
+		background: var(--color-bg-surface);
+		border-left: 4px solid var(--color-accent);
+		border-radius: var(--radius-md);
+		margin-bottom: var(--space-lg);
+	}
+
+	.result-recommendations h4 {
+		margin: 0 0 var(--space-md);
+		color: var(--color-text-primary);
+		font-size: var(--font-size-lg);
+	}
+
+	.result-recommendations ul {
+		margin: 0;
+		padding-left: var(--space-lg);
+		color: var(--color-text-secondary);
+	}
+
+	.result-recommendations li {
+		margin-bottom: var(--space-sm);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.calculator-reset {
+		background: var(--color-text-secondary);
+	}
+
+	@media (max-width: 768px) {
+		.dora-calculator {
+			padding: var(--space-md);
+		}
+
+		.calculator-title {
+			font-size: var(--font-size-xl);
+		}
+
+		.result-badge {
+			font-size: var(--font-size-2xl);
+		}
+	}
+</style>
+
+<script>
+	const selects = document.querySelectorAll('.input-select');
+	const calculateBtn = document.getElementById('calculate-btn');
+	const resetBtn = document.getElementById('reset-btn');
+	const resultsDiv = document.getElementById('results');
+	const formDiv = document.querySelector('.calculator-form');
+
+	const levels = {
+		elite: {
+			name: 'Elite Performer',
+			class: 'elite',
+			description: 'You\'re in the top 10% of engineering organizations. Your team deploys frequently, recovers quickly, and maintains high quality.',
+			recommendations: [
+				'Maintain your current practices—they\'re working',
+				'Share your playbook with other teams (internal blog posts, lunch-and-learns)',
+				'Focus on edge cases: can you improve MTTR further? Reduce CFR to <5%?',
+				'Consider external visibility: speak at conferences, write about your practices'
+			]
+		},
+		high: {
+			name: 'High Performer',
+			class: 'high',
+			description: 'You\'re doing well—better than most organizations. There\'s room to push toward elite, but you\'re on the right track.',
+			recommendations: [
+				'Identify your weakest metric and focus there (usually deployment frequency or lead time)',
+				'Invest in automation: CI/CD, testing, observability',
+				'Experiment with feature flags to decouple deploy from release',
+				'Reduce PR review time with smaller, more frequent PRs'
+			]
+		},
+		medium: {
+			name: 'Medium Performer',
+			class: 'medium',
+			description: 'You\'re in the middle of the pack. Significant improvements are possible with focused effort.',
+			recommendations: [
+				'Start with deployment frequency: automate your deploy pipeline end-to-end',
+				'Improve testing: add unit, integration, and E2E tests to catch issues early',
+				'Set up monitoring and alerting to reduce MTTR',
+				'Adopt trunk-based development to reduce lead time',
+				'Run a retrospective to identify the biggest bottlenecks'
+			]
+		},
+		low: {
+			name: 'Low Performer',
+			class: 'low',
+			description: 'You have significant room for improvement. This is common—most orgs start here. The good news: small changes yield big wins.',
+			recommendations: [
+				'Automate deploys first: manual deploys are killing your velocity',
+				'Shrink batch sizes: deploy smaller, more frequent changes',
+				'Invest in CI/CD infrastructure: this is foundational',
+				'Build a culture of quality: testing, code reviews, post-mortems',
+				'Consider hiring a platform/DevOps engineer to accelerate improvements',
+				'Read "Accelerate" by Nicole Forsgren for a roadmap'
+			]
+		}
+	};
+
+	function checkAllSelected() {
+		const allSelected = Array.from(selects).every(select => select.value !== '');
+		if (calculateBtn) {
+			calculateBtn.disabled = !allSelected;
+		}
+	}
+
+	selects.forEach(select => {
+		select.addEventListener('change', checkAllSelected);
+	});
+
+	if (calculateBtn) {
+		calculateBtn.addEventListener('click', () => {
+			const deployFreq = parseInt(document.getElementById('deploy-freq').value);
+			const leadTime = parseInt(document.getElementById('lead-time').value);
+			const mttr = parseInt(document.getElementById('mttr').value);
+			const cfr = parseInt(document.getElementById('cfr').value);
+
+			const avgScore = (deployFreq + leadTime + mttr + cfr) / 4;
+
+			let level;
+			if (avgScore >= 3.5) level = 'elite';
+			else if (avgScore >= 2.5) level = 'high';
+			else if (avgScore >= 1.5) level = 'medium';
+			else level = 'low';
+
+			const result = levels[level];
+
+			const badgeDiv = document.getElementById('result-badge');
+			const descDiv = document.getElementById('result-description');
+			const recDiv = document.getElementById('result-recommendations');
+
+			if (badgeDiv) {
+				badgeDiv.className = `result-badge ${result.class}`;
+				badgeDiv.textContent = result.name;
+			}
+
+			if (descDiv) {
+				descDiv.innerHTML = `<p><strong>${result.description}</strong></p>`;
+			}
+
+			if (recDiv) {
+				recDiv.innerHTML = `
+					<h4>Recommendations:</h4>
+					<ul>
+						${result.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+					</ul>
+				`;
+			}
+
+			if (formDiv) formDiv.style.display = 'none';
+			if (resultsDiv) resultsDiv.style.display = 'block';
+		});
+	}
+
+	if (resetBtn) {
+		resetBtn.addEventListener('click', () => {
+			selects.forEach(select => select.value = '');
+			if (calculateBtn) calculateBtn.disabled = true;
+			if (formDiv) formDiv.style.display = 'block';
+			if (resultsDiv) resultsDiv.style.display = 'none';
+		});
+	}
+</script>

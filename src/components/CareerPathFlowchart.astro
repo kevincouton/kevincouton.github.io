@@ -1,0 +1,277 @@
+---
+// Interactive Career Path Flowchart for Engineering Ladders
+---
+
+<div class="flowchart-container">
+	<svg viewBox="0 0 900 700" class="career-flowchart" role="img" aria-label="Engineering career path flowchart showing progression from Junior to Distinguished Engineer">
+		<defs>
+			<marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+				<polygon points="0 0, 10 3, 0 6" fill="var(--color-accent)" />
+			</marker>
+			<linearGradient id="ic-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+				<stop offset="0%" style="stop-color:#059669;stop-opacity:0.2" />
+				<stop offset="100%" style="stop-color:#059669;stop-opacity:0.05" />
+			</linearGradient>
+			<linearGradient id="mgmt-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+				<stop offset="0%" style="stop-color:#0066CC;stop-opacity:0.2" />
+				<stop offset="100%" style="stop-color:#0066CC;stop-opacity:0.05" />
+			</linearGradient>
+		</defs>
+
+		<!-- IC Track Background -->
+		<rect x="50" y="150" width="380" height="520" rx="8" fill="url(#ic-gradient)" stroke="#059669" stroke-width="2" stroke-dasharray="5,5" />
+		<text x="240" y="180" text-anchor="middle" class="track-label" fill="#059669">Individual Contributor Track</text>
+
+		<!-- Management Track Background -->
+		<rect x="470" y="150" width="380" height="520" rx="8" fill="url(#mgmt-gradient)" stroke="#0066CC" stroke-width="2" stroke-dasharray="5,5" />
+		<text x="660" y="180" text-anchor="middle" class="track-label" fill="#0066CC">Management Track</text>
+
+		<!-- Common Start: Junior/Mid Engineer -->
+		<g class="level-node" data-level="junior">
+			<rect x="350" y="50" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="var(--color-border)" stroke-width="2" />
+			<text x="450" y="80" text-anchor="middle" class="node-title">Junior/Mid Engineer</text>
+			<text x="450" y="105" text-anchor="middle" class="node-subtitle">L3-L4 • Team Features</text>
+		</g>
+
+		<!-- Arrow to Senior -->
+		<line x1="450" y1="130" x2="450" y2="210" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+
+		<!-- Senior Engineer (Pre-Fork) -->
+		<g class="level-node clickable" data-level="senior">
+			<rect x="350" y="210" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="var(--color-text-secondary)" stroke-width="3" />
+			<text x="450" y="240" text-anchor="middle" class="node-title">Senior Engineer</text>
+			<text x="450" y="265" text-anchor="middle" class="node-subtitle">L5 • Independent • $200-350K</text>
+		</g>
+
+		<!-- Fork Arrows -->
+		<line x1="350" y1="250" x2="240" y2="330" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+		<line x1="550" y1="250" x2="660" y2="330" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+		<text x="450" y="310" text-anchor="middle" class="fork-label">The Fork</text>
+
+		<!-- IC Track Nodes -->
+		<g class="level-node clickable" data-level="staff">
+			<rect x="140" y="330" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="#059669" stroke-width="2" />
+			<text x="240" y="360" text-anchor="middle" class="node-title">Staff Engineer</text>
+			<text x="240" y="385" text-anchor="middle" class="node-subtitle">L6 • Multi-Team • $350-500K+</text>
+		</g>
+
+		<line x1="240" y1="410" x2="240" y2="460" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+
+		<g class="level-node clickable" data-level="senior-staff">
+			<rect x="140" y="460" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="#059669" stroke-width="2" />
+			<text x="240" y="490" text-anchor="middle" class="node-title">Senior Staff/Principal</text>
+			<text x="240" y="515" text-anchor="middle" class="node-subtitle">L7 • Org-Wide • $500-750K+</text>
+		</g>
+
+		<line x1="240" y1="540" x2="240" y2="590" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+
+		<g class="level-node clickable" data-level="distinguished">
+			<rect x="140" y="590" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="#059669" stroke-width="2" />
+			<text x="240" y="620" text-anchor="middle" class="node-title">Distinguished/Fellow</text>
+			<text x="240" y="645" text-anchor="middle" class="node-subtitle">L8+ • Company • $750K-1M++</text>
+		</g>
+
+		<!-- Management Track Nodes -->
+		<g class="level-node clickable" data-level="em">
+			<rect x="560" y="330" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="#0066CC" stroke-width="2" />
+			<text x="660" y="360" text-anchor="middle" class="node-title">Engineering Manager</text>
+			<text x="660" y="385" text-anchor="middle" class="node-subtitle">EM • Team Lead • $250-400K</text>
+		</g>
+
+		<line x1="660" y1="410" x2="660" y2="460" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+
+		<g class="level-node clickable" data-level="senior-em">
+			<rect x="560" y="460" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="#0066CC" stroke-width="2" />
+			<text x="660" y="490" text-anchor="middle" class="node-title">Senior EM</text>
+			<text x="660" y="515" text-anchor="middle" class="node-subtitle">Senior EM • 2-3 Teams • $400-600K</text>
+		</g>
+
+		<line x1="660" y1="540" x2="660" y2="590" stroke="var(--color-accent)" stroke-width="2" marker-end="url(#arrowhead)" />
+
+		<g class="level-node clickable" data-level="director">
+			<rect x="560" y="590" width="200" height="80" rx="8" fill="var(--color-bg-surface)" stroke="#0066CC" stroke-width="2" />
+			<text x="660" y="620" text-anchor="middle" class="node-title">Director/VP</text>
+			<text x="660" y="645" text-anchor="middle" class="node-subtitle">Org Leader • $600K-2M+</text>
+		</g>
+
+		<!-- Switch arrows (dotted) -->
+		<line x1="340" y1="370" x2="560" y2="370" stroke="var(--color-text-tertiary)" stroke-width="1" stroke-dasharray="3,3" />
+		<text x="450" y="365" text-anchor="middle" class="switch-label">Switch (harder)</text>
+	</svg>
+
+	<!-- Info Panel -->
+	<div class="flowchart-info" id="flowchart-info">
+		<p class="info-hint">Click nodes to explore each career level</p>
+	</div>
+</div>
+
+<style>
+	.flowchart-container {
+		margin: var(--space-3xl) 0;
+		padding: var(--space-xl);
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.career-flowchart {
+		width: 100%;
+		height: auto;
+		display: block;
+		margin-bottom: var(--space-xl);
+	}
+
+	.track-label {
+		font-size: 16px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.level-node {
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.level-node.clickable:hover rect {
+		filter: brightness(1.1);
+		stroke-width: 4;
+	}
+
+	.level-node.active rect {
+		filter: brightness(1.2);
+		stroke-width: 4;
+	}
+
+	.node-title {
+		font-size: 15px;
+		font-weight: 600;
+		fill: var(--color-text-primary);
+	}
+
+	.node-subtitle {
+		font-size: 12px;
+		fill: var(--color-text-secondary);
+	}
+
+	.fork-label, .switch-label {
+		font-size: 12px;
+		font-weight: 600;
+		fill: var(--color-text-tertiary);
+		font-style: italic;
+	}
+
+	.flowchart-info {
+		padding: var(--space-md);
+		background: var(--color-code-bg);
+		border-radius: var(--radius-md);
+		border-left: 3px solid var(--color-accent);
+		min-height: 80px;
+	}
+
+	.info-hint {
+		margin: 0;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		font-style: italic;
+	}
+
+	.flowchart-info p {
+		margin: 0;
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.flowchart-info strong {
+		color: var(--color-text-primary);
+		font-weight: 600;
+	}
+
+	@media (max-width: 768px) {
+		.flowchart-container {
+			padding: var(--space-md);
+		}
+
+		.career-flowchart {
+			height: 600px;
+		}
+
+		.track-label {
+			font-size: 13px;
+		}
+
+		.node-title {
+			font-size: 13px;
+		}
+
+		.node-subtitle {
+			font-size: 10px;
+		}
+	}
+</style>
+
+<script>
+	const nodes = document.querySelectorAll('.level-node.clickable');
+	const infoPanel = document.getElementById('flowchart-info');
+
+	const levelInfo = {
+		senior: {
+			title: 'Senior Engineer (L5)',
+			description: 'The critical decision point. You can execute independently, mentor others, and solve complex problems within your team. Most engineers reach this level within 5-7 years. The fork ahead determines whether you stay technical or move into people management.'
+		},
+		staff: {
+			title: 'Staff Engineer (L6)',
+			description: 'Multi-team scope. You design systems that span multiple teams, unblock complex problems, and multiply the effectiveness of others. This is NOT just "senior++". The work fundamentally changes from execution to leverage. Comp: $350-500K+ at big tech.'
+		},
+		'senior-staff': {
+			title: 'Senior Staff / Principal Engineer (L7)',
+			description: 'Organization-wide influence. You set technical direction for entire organizations, mentor other Staff engineers, and solve problems that affect hundreds of engineers. Extremely rare—only 1-2% of engineers reach this level. Comp: $500-750K+.'
+		},
+		distinguished: {
+			title: 'Distinguished Engineer / Fellow (L8+)',
+			description: 'Company-wide strategic impact. You define technical vision for the entire company, influence the industry (speaking, open source, research), and are recognized as a thought leader. Unicorn-level rare. Comp: $750K-1M++.'
+		},
+		em: {
+			title: 'Engineering Manager',
+			description: 'People management. You own team outcomes (delivery, culture, growth), hire and develop engineers, and translate strategy into execution. Your days are 50% 1-on-1s, 30% planning, 15% org work, 5% code. Comp: $250-400K at start.'
+		},
+		'senior-em': {
+			title: 'Senior Engineering Manager',
+			description: 'Multi-team leadership. You manage 2-3 teams (15-25 engineers), align cross-functional efforts, and develop other managers. Less execution, more organizational strategy. Comp: $400-600K.'
+		},
+		director: {
+			title: 'Director / VP of Engineering',
+			description: 'Organizational leadership. You own strategy for entire organizations (50-200+ engineers), manage budgets, hire directors/managers, and report to executives. Heavily political. Comp: $600K-2M+ depending on company size and level.'
+		}
+	};
+
+	function showInfo(level) {
+		if (!infoPanel || !levelInfo[level]) return;
+
+		const info = levelInfo[level];
+		infoPanel.innerHTML = `
+			<p><strong>${info.title}</strong></p>
+			<p>${info.description}</p>
+		`;
+	}
+
+	function clearActive() {
+		nodes.forEach(n => n.classList.remove('active'));
+	}
+
+	nodes.forEach(node => {
+		node.addEventListener('click', () => {
+			const level = node.dataset.level;
+			const wasActive = node.classList.contains('active');
+
+			clearActive();
+
+			if (!wasActive) {
+				node.classList.add('active');
+				showInfo(level);
+			} else {
+				infoPanel.innerHTML = '<p class="info-hint">Click nodes to explore each career level</p>';
+			}
+		});
+	});
+</script>
