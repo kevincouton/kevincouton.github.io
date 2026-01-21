@@ -1,4 +1,5 @@
 ---
+import PostHogLayout from '../../layouts/PostHogLayout.astro';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -11,74 +12,76 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={`Articles - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main class="main-content">
-			<div class="container">
-				<header class="page-header">
-					<h1 class="page-title">All Articles</h1>
-					<p class="page-description">
-						Explore {posts.length} articles about DevOps, software craftsmanship, IT governance, and more.
-					</p>
-				</header>
+<PostHogLayout>
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<BaseHead title={`Articles - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		</head>
+		<body>
+			<Header />
+			<main class="main-content">
+				<div class="container">
+					<header class="page-header">
+						<h1 class="page-title">All Articles</h1>
+						<p class="page-description">
+							Explore {posts.length} articles about DevOps, software craftsmanship, IT governance, and more.
+						</p>
+					</header>
 
-				<div class="posts-grid">
-					{posts.map((post) => (
-						<PostCard post={post} featured={post.data.featured} />
-					))}
+					<div class="posts-grid">
+						{posts.map((post) => (
+							<PostCard post={post} featured={post.data.featured} />
+						))}
+					</div>
 				</div>
-			</div>
-		</main>
-		<Footer />
-	</body>
-</html>
+			</main>
+			<Footer />
+		</body>
+	</html>
 
-<style>
-	.main-content {
-		min-height: calc(100vh - 300px);
-		padding: var(--space-4xl) 0;
-	}
-
-	.page-header {
-		max-width: var(--max-width-content);
-		margin: 0 auto var(--space-4xl);
-		text-align: center;
-	}
-
-	.page-title {
-		font-size: var(--font-size-4xl);
-		margin: 0 0 var(--space-md);
-		color: var(--color-text-primary);
-	}
-
-	.page-description {
-		font-size: var(--font-size-lg);
-		color: var(--color-text-secondary);
-		margin: 0;
-	}
-
-	.posts-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-		gap: var(--space-xl);
-	}
-
-	@media (max-width: 768px) {
+	<style>
 		.main-content {
-			padding: var(--space-3xl) 0;
+			min-height: calc(100vh - 300px);
+			padding: var(--space-4xl) 0;
+		}
+
+		.page-header {
+			max-width: var(--max-width-content);
+			margin: 0 auto var(--space-4xl);
+			text-align: center;
 		}
 
 		.page-title {
-			font-size: var(--font-size-3xl);
+			font-size: var(--font-size-4xl);
+			margin: 0 0 var(--space-md);
+			color: var(--color-text-primary);
+		}
+
+		.page-description {
+			font-size: var(--font-size-lg);
+			color: var(--color-text-secondary);
+			margin: 0;
 		}
 
 		.posts-grid {
-			grid-template-columns: 1fr;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+			gap: var(--space-xl);
 		}
-	}
-</style>
+
+		@media (max-width: 768px) {
+			.main-content {
+				padding: var(--space-3xl) 0;
+			}
+
+			.page-title {
+				font-size: var(--font-size-3xl);
+			}
+
+			.posts-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</PostHogLayout>
